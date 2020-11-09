@@ -1,10 +1,8 @@
 import React from 'react';
 import {
-    BrowserRouter as Router,
     Switch,
-    Route,
-    Link
-  } from "react-router-dom";
+    Route
+} from "react-router-dom";
 import Reports from '../components/reports/reports.component';
 import Settings from '../components/settings/settings.component';
 import Alert from '../components/alerts/alerts.component';

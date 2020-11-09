@@ -1,19 +1,6 @@
 import React from 'react';
-// import { makeStyles } from '@material-ui/core/styles';
-import './side-menu.styles.scss';
 import { Link } from "react-router-dom";
-
-// import Paper from '@material-ui/core/Paper';
-// import Tabs from '@material-ui/core/Tabs';
-// import Tab from '@material-ui/core/Tab';
-// import TextField from '@material-ui/core/TextField';
-
-// const useStyles = makeStyles({
-//   root: {
-//     flexGrow: 1,
-//     maxWidth: 500,
-//   },
-// });
+import './side-menu.styles.scss';
 
 function SideMenu() {
 	const menu = [
@@ -23,14 +10,8 @@ function SideMenu() {
 		{id: 3, name: 'settings', link:'settings'},
 		{id: 4, name: 'reports', link:'reports'}
 	];
-	// const classes = useStyles();
-	// const [value, setValue] = React.useState(0);
 	const [activeId, setActiveId] = React.useState(0);
-
-	// const handleChange = (event, newValue) => {
-	// 	setValue(newValue);
-	// };
-
+	
 	const handleClick = (ev, id) => {
 		setActiveId(id);
 	}
@@ -54,7 +35,6 @@ function SideMenu() {
 									key={data.id}
 									onClick={() => handleClick(this, data.id) }
 								>
-									{/* <a href=''>{data.name}</a> */}
 									<Link to={`${data.link}`}>{data.name}</Link>
 								</li>
 							);
@@ -62,36 +42,6 @@ function SideMenu() {
 					</ul>
 				</div>
 			</div>
-			
-			{/* <div className='d-flex w-100 justify-content-between dashboard'>
-				<div className='d-block'>
-					<div className='d-flex justify-content-between'>
-						<h3>Dashboard Residencial</h3>
-						<button className='viewer-btn'>Main viewer</button>
-					</div>
-					<input className='search-bar' placeholder='Search for anything!' />
-				</div>
-			
-				<div className='d-block'>
-					<Paper square className={classes.root}>
-						<Tabs
-							value={value}
-							onChange={handleChange}
-							variant="fullWidth"
-							indicatorColor="primary"
-							textColor="primary"
-							aria-label="icon tabs example"
-						>
-							<Tab icon={'Hello'} aria-label="phone" />
-							<Tab icon={'All'} aria-label="favorite" />
-						</Tabs>
-					</Paper>
-					<div className='location-block'>
-						<div>Location</div>
-						<div>Building Name</div>
-					</div>
-				</div>
-			</div> */}
 		</div>
 	);
 }

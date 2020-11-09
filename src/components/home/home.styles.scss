@@ -18,12 +18,31 @@
     width: 400px;
     height: 100%;
     border-radius: 10px;
-    color: #fff;
+    color: #d8d8d8;
     background-color: #313141;
+}
+
+hr{
+    // height: 1px;
+    opacity: 0.22;
+    border: solid 1px #fff !important;
+}
+
+.MuiOutlinedInput-notchedOutline{
+    border: none !important;
+}
+
+.MuiInputLabel-outlined, .MuiSelect-icon{
+    color: #d8d8d8 !important;
 }
 
 .dashboard {
     background-color: #272738;
+    color: #fff;
+}
+
+.filter {
+    font-weight: bold;
     color: #fff;
 }
 
@@ -36,6 +55,13 @@
     color: #fff;
 }
 
+img {
+    height: 60px;
+    width: 60px;
+    border: transparent;
+    border-radius: 52px;
+}
+
 .viewer-btn {
     width: 148px;
     height: 39px;
@@ -43,32 +69,35 @@
     background-color: #ffffff;
 }
 
-// .menu-list {
-//     li {
-//         height: 75px;
-//         link {
-//             color: #fff;
-//             font-weight: bold;
-//             &:hover {
-//                 text-decoration: none;
-//             }
-//         }
-//     }
-    div.active {
-        background: #fff;
-        border-radius: 12px;
-        box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.08);
-        color: #232f3d;
-        div {
-            color: #3c3c52;
-        }
+div.active {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.08);
+    color: #232f3d;
+    div {
+        color: #3c3c52;
     }
-// }
+}
+
+div.active-video{
+    background: #4c4b63;
+    box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.08);
+    color: #e9e8ee;
+    padding: 10px 0;
+    width: 100%;
+}
+
+.stock-board {
+    width: 100%;
+    background-color: #313141;
+    height: 100%;
+    border-radius: 8px;
+}
 
 .tags {
     background-color: #313141;
     border-radius: 12px;
-    width: 84px;
-    height: 42px;
+    width: 100px;
+    height: 45px;
     cursor: pointer;
 }
