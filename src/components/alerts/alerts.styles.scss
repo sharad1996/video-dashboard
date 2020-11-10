@@ -1,6 +1,6 @@
 .dashboard {
     background-color: #272738;
-    color: #fff;
+    // color: #fff;
 }
 
 .alert-box {
@@ -14,52 +14,90 @@
 }
 
 .next-btn {
-    width: 100px;
+    width: 19rem;
     background-color: #272738;
+    height: 3rem;
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
 }
 
-
-
 .toggle-container {
-    width: 20rem;
-    height: 3rem;
-    border: 1px solid #272738;
-    background-color: #fff;
+    width: 30rem;
+    height: 2.8rem;
+    background-color: #262636;
     cursor: pointer;
+    color: #fff;
     user-select: none;
     border-radius: 8px;
     padding: 2px;
     position: relative;
+    font-size: 14px;
     box-shadow: 0 6px 40px 0 rgba(0, 0, 0, 0.21);
 }
+
+.alert-types{
+    background-color: #f2f2f8;
+    color: #272738;
+    height: 5rem;
+    // min-width: 8rem;
+    border-radius: 9px;
+}
+
+div.active-video{
+    background: #4c4b63;
+    box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.08);
+    color: #e9e8ee;
+    // padding: 10px 0;
+    // width: 100%;
+}
+
+.MuiMobileStepper-root{
+    background: transparent !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    justify-content: center !important;
+}
+
+.MuiMobileStepper-dot{
+    height: 15px !important;
+    width: 15px !important;
+    margin: 0 5px !important;
+}
+
+.MuiMobileStepper-dotActive{
+    background-color: #272738 !important;
+}
+
   
 .dialog-button {
     top: 0;
-    width: 10rem;
+    width: 15rem;
+    height: 2.8rem;
     min-width: unset;
-    height: 3rem;
     font-size: 14px;
     font-weight: bold;
     cursor: pointer;
-    background-color: #002b49;
-    color: white;
+    background-color: #fff;
+    color: #262636;
     border-radius: 18px;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    // box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     min-width: 46px;
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 8px;
+    border-radius: 6px;
     box-sizing: border-box;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+    // box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
     position: absolute;
-    left: 10rem;
+    left: 15rem;
     transition: all 0.3s ease;
 }
   
 .disabled {
-    background-color: #ececec;
+    background-color: #fff;
     left: 0px;
     top: 0;
-    color: #000;
+    color: #272738;
 }
