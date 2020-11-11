@@ -9,7 +9,7 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <div className='d-flex'>
+        <div className='d-flex h-100'>
           <SideMenu />
           <Routes />
         </div>

@@ -1,0 +1,68 @@
+button:focus {
+    outline: 0;
+}
+
+.dashboard {
+    background-color: #272738;
+    color: #fff;
+}
+.alerts-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dashboard-container {
+    // margin: 1rem;
+    background: #2e2f3e;
+    display: flex;
+    justify-content: center;
+    color: #fff;
+    width: 100%;
+  }
+  
+  .alerts-container {
+    margin: 2rem;
+    padding: 2rem;
+    width: 70%;
+    background-color: #353545;
+    border-radius: 20px;
+  }
+  
+  .video-container {
+    margin:.5rem;
+    padding: 1rem;
+    width: 30%;
+    background-color: #2e2f3e;
+    border-radius: .5rem;
+  }
+
+  .add-alert{
+      color: #53a6ef !important;
+  }
+
+.Mui-selected{
+    background-color: #fff !important;
+    color: #000 !important;
+}
+
+.pannel {
+    color: #fff !important;
+    background-color: transparent !important;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: left;
+    margin-bottom: 10px;
+    position: inherit !important;
+    box-shadow: none !important;
+}
+
+.border-accordion{
+    height: 9px;
+    border-radius: 30px;
+    border: 2px solid #fff;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+}

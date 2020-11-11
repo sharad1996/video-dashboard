@@ -62,7 +62,6 @@ function Home() {
     const handleClick = (ev, data) => {
         setActiveIdType(data.id);
         setVideo(data.link);
-        console.log('=================', video)
     }
     
     const playVideo = (ev, id) => {

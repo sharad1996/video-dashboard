@@ -25,6 +25,10 @@ function Alert() {
 		{id: 1, name: 'Loethring', descrption: 'Halways, Stairwells'},
 		{id: 2, name: 'Party', descrption: 'Roof Backward'},
 		{id: 3, name: 'Moving', descrption: ''},
+		{id: 4, name: 'Smoking', descrption: 'All Building'},
+		{id: 5, name: 'Fire', descrption: 'All Building'},
+		{id: 6, name: 'Luggage', descrption: ''},
+		{id: 7, name: 'Peeing', descrption: 'All Building'}
 	];
 	const alertTypes2 = [	
 		{id: 4, name: 'Smoking', descrption: 'All Building'},
@@ -44,14 +48,10 @@ function Alert() {
 		setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
-  // const handleBack = () => {
-  //   setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  // };
-
 	return (
 		<div className='d-flex w-100 h-100 justify-content-between dashboard p-5 align-items-center'>
-			<div className='d-block w-100 alert col-12'>
-				<div className='inner-alert col-6 p-4'>
+			<div className='d-flex justify-content-center align-items-center w-100 alert col-12 h-100'>
+				<div className='inner-alert col-8 p-4'>
 					{activeStep === 0 && <div>
 							<div className='pb-1'>
 								<h5><strong>STEP 1</strong></h5>
@@ -74,35 +74,20 @@ function Alert() {
 									</div>
 								</div>
 							</div>
-							<div className='d-flex w-100 col-12'>
+							<div className='d-flex w-100 row m-0'>
 								{alertTypes1.map((data) => {
 								return (
-									<div className={`col-3 m-1 d-flex align-items-center justify-content-center alert-types mb-4 ${activeIdVideo === data.id && 'active-video'}`}
+									<div className='col-3 mb-4'
 										key={data.id}
 										onClick={() => handleClick(this, data) }
 									>
-										<div className='d-block'>
-											<div>
-												<strong>{data.name}</strong>
+										<div className={`d-flex align-items-center justify-content-center alert-types ${activeIdVideo === data.id && 'active-video'}`}>
+											<div className='d-block p-2'>
+												<div>
+													<strong>{data.name}</strong>
+												</div>
+												<div>{data.description}</div>
 											</div>
-											<div>{data.description}</div>
-										</div>
-									</div>
-									);
-								})}
-							</div>
-							<div className='d-flex w-100 col-12'>
-								{alertTypes2.map((data) => {
-								return (
-									<div className={`col-3 m-1 d-flex align-items-center justify-content-center alert-types mb-4 ${activeIdVideo === data.id && 'active-video'}`}
-										key={data.id}
-										onClick={() => handleClick(this, data) }
-									>
-										<div className='d-block'>
-											<div>
-												<strong>{data.name}</strong>
-											</div>
-											<div>{data.description}</div>
 										</div>
 									</div>
 									);
@@ -120,35 +105,20 @@ function Alert() {
 							<div className='pb-3'>
 								<h4>What alerts do you want to set up today?</h4>
 							</div>
-							<div className='d-flex w-100 col-12'>
+							<div className='d-flex w-100 row m-0'>
 								{alertTypes1.map((data) => {
 								return (
-									<div className={`col-3 m-1 d-flex align-items-center justify-content-center alert-types mb-4 ${activeIdVideo === data.id && 'active-video'}`}
+									<div className='col-3 mb-4'
 										key={data.id}
 										onClick={() => handleClick(this, data) }
 									>
-										<div className='d-block'>
-											<div>
-												<strong>{data.name}</strong>
+										<div className={`d-flex align-items-center justify-content-center alert-types ${activeIdVideo === data.id && 'active-video'}`}>
+											<div className='d-block p-2'>
+												<div>
+													<strong>{data.name}</strong>
+												</div>
+												<div>{data.description}</div>
 											</div>
-											<div>{data.description}</div>
-										</div>
-									</div>
-									);
-								})}
-							</div>
-							<div className='d-flex w-100 col-12'>
-								{alertTypes2.map((data) => {
-								return (
-									<div className={`col-3 m-1 d-flex align-items-center justify-content-center alert-types mb-4 ${activeIdVideo === data.id && 'active-video'}`}
-										key={data.id}
-										onClick={() => handleClick(this, data) }
-									>
-										<div className='d-block'>
-											<div>
-												<strong>{data.name}</strong>
-											</div>
-											<div>{data.description}</div>
 										</div>
 									</div>
 									);
@@ -166,35 +136,20 @@ function Alert() {
 							<div className='pb-3'>
 								<h4>What alerts do you want to set up today?</h4>
 							</div>
-							<div className='d-flex w-100 col-12'>
+							<div className='d-flex w-100 row m-0'>
 								{alertTypes1.map((data) => {
 								return (
-									<div className={`col-3 m-1 d-flex align-items-center justify-content-center alert-types mb-4 ${activeIdVideo === data.id && 'active-video'}`}
+									<div className='col-3 mb-4'
 										key={data.id}
 										onClick={() => handleClick(this, data) }
 									>
-										<div className='d-block'>
-											<div>
-												<strong>{data.name}</strong>
+										<div className={`d-flex align-items-center justify-content-center alert-types ${activeIdVideo === data.id && 'active-video'}`}>
+											<div className='d-block p-2'>
+												<div>
+													<strong>{data.name}</strong>
+												</div>
+												<div>{data.description}</div>
 											</div>
-											<div>{data.description}</div>
-										</div>
-									</div>
-									);
-								})}
-							</div>
-							<div className='d-flex w-100 col-12'>
-								{alertTypes2.map((data) => {
-								return (
-									<div className={`col-3 m-1 d-flex align-items-center justify-content-center alert-types mb-4 ${activeIdVideo === data.id && 'active-video'}`}
-										key={data.id}
-										onClick={() => handleClick(this, data) }
-									>
-										<div className='d-block'>
-											<div>
-												<strong>{data.name}</strong>
-											</div>
-											<div>{data.description}</div>
 										</div>
 									</div>
 									);
