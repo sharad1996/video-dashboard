@@ -10,6 +10,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { Player } from 'video-react';
+import DemoAppArea from './demo-app-area.component';
 
 const useStyles = makeStyles({
 	root: {
@@ -41,7 +42,8 @@ function Home() {
 		{id: 4, name: 'Visitors', link: 'https://www.youtube.com/watch?v=kdJvv3RipNY'},
 		{id: 5, name: 'Smoking', link: 'https://www.youtube.com/watch?v=kdJvv3RipNY'},
 		{id: 6, name: 'Intruder', link: 'https://www.youtube.com/watch?v=kdJvv3RipNY'},
-		{id: 7, name: 'Loitering', link: 'https://www.youtube.com/watch?v=kdJvv3RipNY'}
+        {id: 7, name: 'Loitering', link: 'https://www.youtube.com/watch?v=kdJvv3RipNY'},
+        {id: 8, name: 'Demo_tab', link: 'https://www.youtube.com/watch?v=kdJvv3RipNY'}
     ];
     
     const videos = [
@@ -92,11 +94,14 @@ function Home() {
                     })}
                 </div>
                 <div className='mb-4 stock-board'>
+                    {activeIdType!==8?
                     <Player
                         playsInline
                         poster="/assets/poster.png"
                         src={video}
                     />
+                    :<DemoAppArea/>
+                    }
                     {/* <Player>
                         <source src={video} />
                     </Player> */}
