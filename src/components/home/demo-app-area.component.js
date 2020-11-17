@@ -27,20 +27,18 @@ export default function DemoAppArea() {
 
   return (
     <>
-        
-        <div className={classes.root}>
-            {cardsData.map(data => {
-                return (
-                    <div className={classes.cardContainer}>
-                        <h5>Name of alert</h5>
-                        <Card key={data.id} className={classes.cardRoot}>
-                            <h3>{data.name}</h3>
-                        </Card>
-                    </div>
-                );
-            })}
-        </div>
-        
+      <div className={classes.root}>
+          {cardsData.map(data => {
+              return (
+                  <div className={classes.cardContainer}>
+                      <h5>Name of alert</h5>
+                      <Card key={data.id} className={classes.cardRoot}>
+                          <h3>{data.name}</h3>
+                      </Card>
+                  </div>
+              );
+          })}
+      </div>  
     </>
   );
 }
