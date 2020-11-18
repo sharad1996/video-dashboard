@@ -17,7 +17,6 @@ const useStyles = makeStyles({
 		maxWidth: 500,
     },
     formControl: {
-        minWidth: 200,
         maxHeight: 50,
     },
     formControlBuilding: {
@@ -105,8 +104,8 @@ function Home() {
     </Popover>
     
 	return (
-		<div className='d-flex w-100 justify-content-between dashboard py-5'>
-            <div className='d-block w-100 px-5'>
+		<div className='d-flex justify-content-between dashboard py-5' style={{width:'94%'}}>
+            <div className='d-block px-5' style={{width:'73%'}}>
                 <div className='d-flex justify-content-between mb-4'>
                     <h3>Dashboard Residencial</h3>
                     <button className='viewer-btn'>Main viewer</button>
@@ -131,20 +130,17 @@ function Home() {
                 </div>
                 <div className='mb-4 stock-board'>
                     {activeIdType!==8?
-                    <Player
-                        playsInline
-                        poster="/assets/poster.png"
-                        src={video}
-                    />
-                    :<DemoAppArea/>
+                        <Player
+                            playsInline
+                            poster="/assets/poster.png"
+                            src={video}
+                        />
+                        :<DemoAppArea/>
                     }
-                    {/* <Player>
-                        <source src={video} />
-                    </Player> */}
                 </div>
             </div>
         
-            <div className='d-block pr-5'>
+            <div className='d-block pr-5' style={{width:'27%'}}>
                 <Paper square className={classes.root}>
                     <Tabs
                         value={value}
@@ -160,8 +156,8 @@ function Home() {
                 </Paper>
                 {sidePanelValue==='Activity'?
                     <Activity playVideo={playVideo} age={age} handleChange={handleChange} videos={videos} activeIdVideo={activeIdVideo}/>
-                :
-                <Analytics/>
+                    :
+                    <Analytics/>
                 }
                 
             </div>

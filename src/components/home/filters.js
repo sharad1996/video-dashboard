@@ -67,6 +67,16 @@ const camera = [
     'Camera 4'
 ]
 
+const videos = [
+  {id: 0, heading: 'Dog Peeping', time: new Date(), camera: 'Camera 2', image: '/assets/images/user-profile-avatar.png', location: 'Third Floor'},
+  {id: 1, heading: 'Dog Alone', time: new Date(), camera: 'Camera 3', image: '/assets/images/user-profile-avatar.png', location: 'Second Floor'},
+  {id: 2, heading: 'Dog Barking', time: new Date(), camera: 'Camera 3', image: '/assets/images/user-profile-avatar.png', location: 'First Floor'},
+  {id: 3, heading: 'Dog Jumping', time: new Date(), camera: 'Camera 2', image: '/assets/images/user-profile-avatar.png', location: 'Second Floor'},
+  {id: 4, heading: 'Dog Alone', time: new Date(), camera: 'Camera 4', image: '/assets/images/user-profile-avatar.png', location: 'Third Floor'},
+  {id: 5, heading: 'Dog Event', time: new Date(), camera: 'Camera 3', image: '/assets/images/user-profile-avatar.png', location: 'Fourth Floor'},
+  {id: 6, heading: 'Dog Running', time: new Date(), camera: 'Camera 1', image: '/assets/images/user-profile-avatar.png', location: 'First Floor'},
+  {id: 7, heading: 'Dog prasing', time: new Date(), camera: 'Camera 1', image: '/assets/images/user-profile-avatar.png', location: 'First Floor'}
+];
 
 function getStyles(name, personName, theme) {
   return {
@@ -93,8 +103,28 @@ export default function Filters() {
         setPersonName(event.target.value)
     // setPersonName(event.target.value);
   };
-  console.log(locationValue)
-  console.log(cameraValue)
+  
+  const checkFilters = ()=> {
+    var filterVideos = []
+
+    if(cameraValue.length===0 && locationValue.length===0)
+      return console.log(videos)
+    //for camera filter
+    for(let i=0;i<videos.length;i++)
+    {
+      for(let j=0;j<cameraValue.length;j++)
+      {
+        if(videos[i].camera===cameraValue[j])
+        {
+          filterVideos.push(videos[i])
+          break;
+        }
+      }
+    }
+    //for location filter to be written
+    console.log("array of videos after filters",filterVideos);
+  }
+
   return (
     <div className={classes.formContainer}>
       <FormControl className={classes.formControl}>
@@ -225,6 +255,7 @@ export default function Filters() {
       <Button variant="contained" color="primary" style={{width:'95%', margin:'auto'}}>
         Apply Filters
       </Button>
+      {checkFilters()}
     </div>
   );
 }
