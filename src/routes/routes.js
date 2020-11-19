@@ -8,6 +8,7 @@ import Settings from '../components/settings/settings.component';
 import Alert from '../components/alerts/alerts.component';
 import Faces from '../components/faces/faces.component';
 import Home from '../components/home/home.component';
+import AddAlert from '../components/add-alert/add-alert.component';
 
 const Routes = () => (
     <Switch>
@@ -28,6 +29,9 @@ const Routes = () => (
         </Route>
         <Route path="/faces">
             <Faces />
+        </Route>
+        <Route path="/add-alert">
+            <AddAlert/>
         </Route>
     </Switch>
 );
