@@ -1,29 +1,8 @@
-// .menu-bar {
-//     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
-//     background-color: #3c3c52;
-//     color: #fff;
-//     .user-img {
-//         width: 70px;
-//         height: 70px;
-//         border-radius: 50%;
-//         border: 2px solid #fff;
-//     }
-// }
-
 .heading {
     font-size: 30px;
 }
 
-// .location-block {
-//     width: 400px;
-//     height: 100%;
-//     border-radius: 10px;
-//     color: #d8d8d8;
-//     background-color: #313141;
-// }
-
 hr{
-    // height: 1px;
     opacity: 0.22;
     border: solid 1px #fff !important;
 }
@@ -100,4 +79,14 @@ div.active-video{
     width: 100px;
     height: 45px;
     cursor: pointer;
+}
+
+.activity {
+    background-color:#313141;
+    border-radius: 10px; 
+    flex-wrap: wrap;
+}
+
+.cards {
+    overflow-x: scroll;
 }

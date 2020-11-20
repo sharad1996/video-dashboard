@@ -10,6 +10,8 @@ import Activity from '../activity/activity.component';
 import Analytics from '../analytics/analytics.component';
 import DemoAppArea from './demo-app-area.component';
 import Filters from './filters';
+import Card from '@material-ui/core/Card';
+import { Avatar } from '@material-ui/core';
 
 const useStyles = makeStyles({
 	root: {
@@ -22,7 +24,28 @@ const useStyles = makeStyles({
     formControlBuilding: {
         minWidth: '100%',
         maxHeight: 50,
-    }
+    },
+    cardContainer: {
+        minWidth: '15%',
+        width:'15%',
+        textAlign: 'center'
+    },
+    cardRoot: {
+        width: '100%',
+        backgroundColor: '#313141',
+        height: 150,
+        color: 'white',
+        display:'flex',
+        flexDirection: 'column',
+        justifyContent:'center',
+        alignItems: 'center',
+        boxShadow: 'none'
+        
+    },
+    avatar: {
+        width: '40%',
+		textAlign: 'left'
+	},
 });
 
 function Home() {
@@ -130,13 +153,38 @@ function Home() {
                 </div>
                 <div className='mb-4 stock-board'>
                     {activeIdType!==8?
-                        <Player
-                            playsInline
-                            poster="/assets/poster.png"
-                            src={video}
-                        />
-                        :<DemoAppArea/>
+                    <Player
+                        playsInline
+                        poster="/assets/poster.png"
+                        src={video}
+                    />
+                    :<DemoAppArea/>
                     }
+                    {/* <Player>
+                        <source src={video} />
+                    </Player> */}
+                </div>
+                <div className='d-flex p-3 activity ' style={{width:"100%"}}>
+                    <div className='d-flex mb-4 justify-content-between' style={{width:"100%"}}>
+                        <div>{`Activity(${videos.length})`}</div>
+                        <div><b>Filters+</b></div>
+                    </div>
+                    <div className='d-flex cards' style={{width:"100%"}}>
+                            {videos.map(data => {
+                                return (
+                                    <div className={classes.cardContainer} >
+                                        <Card key={data.id} className={classes.cardRoot}>
+                                            <div className="d-flex justify-content-center" style={{width:'70%', height:'50px'}}>
+                                                <Avatar className={classes.avatar} alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+                                            </div>
+                                            <h5>Name of alert</h5>
+                                            <div>{data.heading}</div>
+                                            <div>{data.camera}</div>
+                                        </Card>
+                                    </div>
+                                );
+                            })}
+                    </div>
                 </div>
             </div>
         
@@ -156,8 +204,8 @@ function Home() {
                 </Paper>
                 {sidePanelValue==='Activity'?
                     <Activity playVideo={playVideo} age={age} handleChange={handleChange} videos={videos} activeIdVideo={activeIdVideo}/>
-                    :
-                    <Analytics/>
+                :
+                <Analytics/>
                 }
                 
             </div>
