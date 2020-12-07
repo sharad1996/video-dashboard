@@ -1,45 +1,35 @@
 import React from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import Input from '@material-ui/core/Input';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import Checkbox from '@material-ui/core/Checkbox';
+import { Button } from '@material-ui/core';
+import Accordion from '@material-ui/core/Accordion';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import Typography from '@material-ui/core/Typography';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import Chip from '@material-ui/core/Chip';
-import { Button } from '@material-ui/core';
+
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(1),
     width: '100%'
   },
-  chips: {
+  formContainer: {
+    width: 300,
     display: 'flex',
     flexWrap: 'wrap',
-  },
-  chip: {
-    margin: 2,
-  },
-  noLabel: {
-    marginTop: theme.spacing(3),
-  },
-  formContainer: {
-    width: 250,
-    display: 'flex',
-    flexWrap: 'wrap'
+    padding: 6
   }
 }));
 
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
-};
 
 const names = [
   'Oliver Hansen',
@@ -53,7 +43,8 @@ const names = [
   'Virginia Andrews',
   'Kelly Snyder',
 ];
-const location = [
+
+const floors = [
     'First Floor',
     'Second Floor',
     'Third Floor',
@@ -78,184 +69,312 @@ const videos = [
   {id: 7, heading: 'Dog prasing', time: new Date(), camera: 'Camera 1', image: '/assets/images/user-profile-avatar.png', location: 'First Floor'}
 ];
 
-function getStyles(name, personName, theme) {
-  return {
-    fontWeight:
-      personName.indexOf(name) === -1
-        ? theme.typography.fontWeightRegular
-        : theme.typography.fontWeightMedium,
-  };
-}
-
 export default function Filters() {
   const classes = useStyles();
-  const theme = useTheme();
-  const [personName, setPersonName] = React.useState([]);
-  const [cameraValue, setCameraValue] = React.useState([]);
-  const [locationValue, setLocationValue] = React.useState([]);
+  const [cameraDropSelect, setCameraDropSelect] = React.useState([]);
+  const [expanded, setExpanded] = React.useState(false);
+  const [checkedLocation, setCheckedLocation] = React.useState([0]);
+  const [checkedCamera, setCheckedCamera] = React.useState([0]);
+  const [checkedEvent, setCheckedEvent] = React.useState([0]);
+  const [checkedPriority, setCheckedPriority] = React.useState([0]);
+  const [toggleLocationFloor, setToggleLocationFloor] = React.useState(false)
 
-  const handleChange = (event,from) => {
-    if(from === 'location')
-        setLocationValue(event.target.value)
-    if(from === 'camera')
-        setCameraValue(event.target.value)
-    if(from === 'person')
-        setPersonName(event.target.value)
-    // setPersonName(event.target.value);
+  const handleToggleLocation = (value,from) => () => {
+    const currentIndex = checkedLocation.indexOf(value);
+    const newChecked = [...checkedLocation];
+
+    if (currentIndex === -1) {
+      newChecked.push(value);
+    } else {
+      newChecked.splice(currentIndex, 1);
+    }
+
+    setCheckedLocation(newChecked);
+  };
+  console.log(checkedLocation)
+
+  const handleToggleCamera = (value,from) => () => {
+    const currentIndex = checkedCamera.indexOf(value);
+    const newChecked = [...checkedCamera];
+
+    if (currentIndex === -1) {
+      newChecked.push(value);
+    } else {
+      newChecked.splice(currentIndex, 1);
+    }
+
+    setCheckedCamera(newChecked);
+  };
+  console.log(checkedCamera)
+
+  const handleToggleEvent = (value,from) => () => {
+    const currentIndex = checkedEvent.indexOf(value);
+    const newChecked = [...checkedEvent];
+
+    if (currentIndex === -1) {
+      newChecked.push(value);
+    } else {
+      newChecked.splice(currentIndex, 1);
+    }
+
+    setCheckedEvent(newChecked);
+  };
+  console.log(checkedEvent)
+
+  const handleTogglePriority = (value,from) => () => {
+    const currentIndex = checkedPriority.indexOf(value);
+    const newChecked = [...checkedPriority];
+
+    if (currentIndex === -1) {
+      newChecked.push(value);
+    } else {
+      newChecked.splice(currentIndex, 1);
+    }
+
+    setCheckedPriority(newChecked);
+  };
+  console.log(checkedPriority)
+
+  const handleChangePanel = (panel) => (event, isExpanded) => {
+    setExpanded(isExpanded ? panel : false);
   };
   
-  const checkFilters = ()=> {
-    var filterVideos = []
+  const handleChangeCameraSelect = (event) => {
+    setCameraDropSelect(event.target.value);
+  };
 
-    if(cameraValue.length===0 && locationValue.length===0)
-      return console.log(videos)
-    //for camera filter
-    for(let i=0;i<videos.length;i++)
-    {
-      for(let j=0;j<cameraValue.length;j++)
-      {
-        if(videos[i].camera===cameraValue[j])
-        {
-          filterVideos.push(videos[i])
-          break;
-        }
-      }
-    }
-    //for location filter to be written
-    console.log("array of videos after filters",filterVideos);
-  }
+  const handleToggleLocationFloor = (value) => () => {
+    setToggleLocationFloor(value);
+  };
+  console.log(checkedPriority)
+
+  // const handleChange = (event,from) => {
+  //   if(from === 'location')
+  //       setLocationValue(event.target.value)
+  //   if(from === 'camera')
+  //       setCameraValue(event.target.value)
+  //   if(from === 'person')
+  //       setPersonName(event.target.value)
+  //   // setPersonName(event.target.value);
+  // };
+  
+  // const checkFilters = ()=>{
+  //   var filterVideos = []
+
+  //   if(cameraValue.length===0 && locationValue.length===0)
+  //     return console.log(videos)
+  //   //for camera filter
+  //   for(let i=0;i<videos.length;i++)
+  //   {
+  //     for(let j=0;j<cameraValue.length;j++)
+  //     {
+  //       if(videos[i].camera===cameraValue[j])
+  //       {
+  //         filterVideos.push(videos[i])
+  //         break;
+  //       }
+  //     }
+  //   }
+  //   //for location filter to be written
+  //   console.log("array of videos after filters",filterVideos);
+  // }
 
   return (
     <div className={classes.formContainer}>
-      <FormControl className={classes.formControl}>
-        <InputLabel id="demo-mutiple-chip-label">Location</InputLabel>
-        <Select
-          labelId="demo-mutiple-chip-label"
-          id="demo-mutiple-chip"
-          multiple
-          value={locationValue}
-          onChange={(e)=>handleChange(e,'location')}
-          input={<Input id="select-multiple-chip" />}
-          renderValue={(selected) => (
-            <div className={classes.chips}>
-              {selected.map((value) => (
-                <Chip key={value} label={value} className={classes.chip} />
-              ))}
-            </div>
-          )}
-          MenuProps={MenuProps}
+      <Accordion className={classes.formControl} expanded={expanded === 'panel1'} onChange={handleChangePanel('panel1')}>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1bh-content"
+          id="panel1bh-header"
         >
-          {location.map((name) => (
-            <MenuItem key={name} value={name} style={getStyles(name, personName, theme)}>
-              {name}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-      <FormControl className={classes.formControl}>
-        <InputLabel id="demo-mutiple-chip-label">Camera</InputLabel>
-        <Select
-          labelId="demo-mutiple-chip-label"
-          id="demo-mutiple-chip"
-          multiple
-          value={cameraValue}
-          onChange={(e)=>handleChange(e,'camera')}
-          input={<Input id="select-multiple-chip" />}
-          renderValue={(selected) => (
-            <div className={classes.chips}>
-              {selected.map((value) => (
-                <Chip key={value} label={value} className={classes.chip} />
-              ))}
-            </div>
-          )}
-          MenuProps={MenuProps}
+          <Typography className={classes.heading}>Locations</Typography>
+        </AccordionSummary>
+        <AccordionDetails className="d-flex flex-wrap">
+        <FormControl className={classes.formControl} >
+            <InputLabel id="demo-simple-select-label">Building</InputLabel>
+            <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={cameraDropSelect}
+            onChange={handleChangeCameraSelect}
+            >
+              <MenuItem value='Single Viewer'>Single Viewer</MenuItem>
+              <MenuItem value='Multi Viewer'>Multi Viewer</MenuItem>
+            </Select>
+        </FormControl>
+        <div className='d-flex justify-content-between w-100 m-2'>
+          <div className='d-flex justify-content-between w-50'>
+            <div onClick={handleToggleLocationFloor(false)}>Area</div>
+            <div onClick={handleToggleLocationFloor(true)}>Floor</div>
+          </div>
+          <div>
+            <Checkbox
+              edge="start"
+              checked={false}
+              tabIndex={-1}
+              disableRipple
+            />
+            <span>All</span>
+          </div> 
+        </div>
+        {!toggleLocationFloor ?
+        <List className={classes.root}>
+            {[0, 1, 2, 3].map((value) => {
+              const labelId = `checkbox-list-label-${value}`;
+
+              return (
+                <ListItem key={value} role={undefined} dense button onClick={handleToggleLocation(value)}>
+                  <ListItemIcon>
+                    <Checkbox
+                      edge="start"
+                      checked={checkedLocation.indexOf(value) !== -1}
+                      tabIndex={-1}
+                      disableRipple
+                      inputProps={{ 'aria-labelledby': labelId }}
+                    />
+                  </ListItemIcon>
+                  <ListItemText id={labelId} primary={`Line item ${value + 1}`} />
+                </ListItem>
+              );
+            })}
+          </List>
+          :
+          <FormControl className={classes.formControl} >
+            <InputLabel id="demo-simple-select-label">Pick Floor</InputLabel>
+            <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={cameraDropSelect}
+            onChange={handleChangeCameraSelect}
+            >
+              <MenuItem value='Single Viewer'>Single Viewer</MenuItem>
+              <MenuItem value='Multi Viewer'>Multi Viewer</MenuItem>
+            </Select>
+        </FormControl>
+        }      
+        </AccordionDetails>
+      </Accordion>
+      <Accordion className={classes.formControl} expanded={expanded === 'panel2'} onChange={handleChangePanel('panel2')}>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel2bh-content"
+          id="panel2bh-header"
         >
-          {camera.map((name) => (
-            <MenuItem key={name} value={name} style={getStyles(name, personName, theme)}>
-              {name}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-      <FormControl className={classes.formControl}>
-        <InputLabel id="demo-mutiple-chip-label">Timestamp</InputLabel>
-        <Select
-          labelId="demo-mutiple-chip-label"
-          id="demo-mutiple-chip"
-          multiple
-          value={personName}
-          onChange={(e)=>handleChange(e,'person')}
-          input={<Input id="select-multiple-chip" />}
-          renderValue={(selected) => (
-            <div className={classes.chips}>
-              {selected.map((value) => (
-                <Chip key={value} label={value} className={classes.chip} />
-              ))}
-            </div>
-          )}
-          MenuProps={MenuProps}
+          <Typography className={classes.heading}>Camera</Typography>
+        </AccordionSummary>
+        <AccordionDetails className="d-flex flex-wrap">
+          <input className='search-bar p-4'style={{backgroundColor:'#d7d7e0',color:'black'}} placeholder='Search' />
+          <FormControl className={classes.formControl} >
+            <InputLabel id="demo-simple-select-label">Viewer</InputLabel>
+            <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={cameraDropSelect}
+            onChange={handleChangeCameraSelect}
+            >
+              <MenuItem value='Single Viewer'>Single Viewer</MenuItem>
+              <MenuItem value='Multi Viewer'>Multi Viewer</MenuItem>
+            </Select>
+          </FormControl>
+          <List className={classes.root}>
+            {[0, 1, 2, 3].map((value) => {
+              const labelId = `checkbox-list-label-${value}`;
+
+              return (
+                <ListItem key={value} role={undefined} dense button onClick={handleToggleCamera(value)}>
+                  <ListItemIcon>
+                    <Checkbox
+                      edge="start"
+                      checked={checkedCamera.indexOf(value) !== -1}
+                      tabIndex={-1}
+                      disableRipple
+                      inputProps={{ 'aria-labelledby': labelId }}
+                    />
+                  </ListItemIcon>
+                  <ListItemText id={labelId} primary={`Line item ${value + 1}`} />
+                </ListItem>
+              );
+            })}
+          </List>
+        </AccordionDetails>
+      </Accordion>
+      <Accordion className={classes.formControl} expanded={expanded === 'panel3'} onChange={handleChangePanel('panel3')}>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel3bh-content"
+          id="panel3bh-header"
         >
-          {names.map((name) => (
-            <MenuItem key={name} value={name} style={getStyles(name, personName, theme)}>
-              {name}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-      <FormControl className={classes.formControl}>
-        <InputLabel id="demo-mutiple-chip-label">Event type</InputLabel>
-        <Select
-          labelId="demo-mutiple-chip-label"
-          id="demo-mutiple-chip"
-          multiple
-          value={personName}
-          onChange={(e)=>handleChange(e,'person')}
-          input={<Input id="select-multiple-chip" />}
-          renderValue={(selected) => (
-            <div className={classes.chips}>
-              {selected.map((value) => (
-                <Chip key={value} label={value} className={classes.chip} />
-              ))}
-            </div>
-          )}
-          MenuProps={MenuProps}
+          <Typography className={classes.heading}>Timestamps</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+        </AccordionDetails>
+      </Accordion>
+      <Accordion className={classes.formControl} expanded={expanded === 'panel4'} onChange={handleChangePanel('panel4')}>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel4bh-content"
+          id="panel4bh-header"
         >
-          {names.map((name) => (
-            <MenuItem key={name} value={name} style={getStyles(name, personName, theme)}>
-              {name}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-      <FormControl className={classes.formControl}>
-        <InputLabel id="demo-mutiple-chip-label">Priority</InputLabel>
-        <Select
-          labelId="demo-mutiple-chip-label"
-          id="demo-mutiple-chip"
-          multiple
-          value={personName}
-          onChange={(e)=>handleChange(e,'person')}
-          input={<Input id="select-multiple-chip" />}
-          renderValue={(selected) => (
-            <div className={classes.chips}>
-              {selected.map((value) => (
-                <Chip key={value} label={value} className={classes.chip} />
-              ))}
-            </div>
-          )}
-          MenuProps={MenuProps}
+          <Typography className={classes.heading}>Event Type</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <List className={classes.root}>
+            {[0, 1, 2, 3].map((value) => {
+              const labelId = `checkbox-list-label-${value}`;
+
+              return (
+                <ListItem key={value} role={undefined} dense button onClick={handleToggleEvent(value)}>
+                  <ListItemIcon>
+                    <Checkbox
+                      edge="start"
+                      checked={checkedEvent.indexOf(value) !== -1}
+                      tabIndex={-1}
+                      disableRipple
+                      inputProps={{ 'aria-labelledby': labelId }}
+                    />
+                  </ListItemIcon>
+                  <ListItemText id={labelId} primary={`Line item ${value + 1}`} />
+                </ListItem>
+              );
+            })}
+          </List>
+        </AccordionDetails>
+      </Accordion>
+      <Accordion className={classes.formControl} expanded={expanded === 'panel5'} onChange={handleChangePanel('panel5')}>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel5bh-content"
+          id="panel5bh-header"
         >
-          {names.map((name) => (
-            <MenuItem key={name} value={name} style={getStyles(name, personName, theme)}>
-              {name}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
+          <Typography className={classes.heading}>Priority: medium</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+        <List className={classes.root}>
+            {[0, 1, 2, 3].map((value) => {
+              const labelId = `checkbox-list-label-${value}`;
+
+              return (
+                <ListItem key={value} role={undefined} dense button onClick={handleTogglePriority(value)}>
+                  <ListItemIcon>
+                    <Checkbox
+                      edge="start"
+                      checked={checkedPriority.indexOf(value) !== -1}
+                      tabIndex={-1}
+                      disableRipple
+                      inputProps={{ 'aria-labelledby': labelId }}
+                    />
+                  </ListItemIcon>
+                  <ListItemText id={labelId} primary={`Line item ${value + 1}`} />
+                </ListItem>
+              );
+            })}
+          </List>
+        </AccordionDetails>
+      </Accordion>
       <Button variant="contained" color="primary" style={{width:'95%', margin:'auto'}}>
         Apply Filters
       </Button>
-      {checkFilters()}
+      {/* {checkFilters()} */}
     </div>
   );
 }

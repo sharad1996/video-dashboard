@@ -4,12 +4,12 @@ import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { Button, Popover } from '@material-ui/core';
-import './home.styles.scss';
+import './faces.styles.scss';
 import { Player } from 'video-react';
 import Activity from '../activity/activity.component';
 import Analytics from '../analytics/analytics.component';
-import DemoAppArea from './demo-app-area.component';
-import Filters from './filters';
+import DemoAppArea from './../home/demo-app-area.component';
+import Filters from './../home/filters';
 import Card from '@material-ui/core/Card';
 import { Avatar } from '@material-ui/core';
 

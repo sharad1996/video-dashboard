@@ -4,12 +4,12 @@ import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { Button, Popover } from '@material-ui/core';
-import './home.styles.scss';
+import './settings.styles.scss';
 import { Player } from 'video-react';
 import Activity from '../activity/activity.component';
 import Analytics from '../analytics/analytics.component';
-import DemoAppArea from './demo-app-area.component';
-import Filters from './filters';
+import DemoAppArea from './../home/demo-app-area.component';
+import Filters from './../home/filters';
 import Card from '@material-ui/core/Card';
 import { Avatar } from '@material-ui/core';
 
@@ -141,13 +141,13 @@ function Settings() {
                 <div className='d-flex mb-4'>
                     {tags.map(data => {
                         return (
-                                <div
-                                    className={`list-unstyled d-flex align-items-center justify-content-center mx-2 my-2 tags ${activeIdType === data.id && 'active'}`}
-                                    key={data.id}
-                                    onClick={() => handleClick(this, data) }
-                                >
-                                    {data.name}
-                                </div>
+                            <div
+                                className={`list-unstyled d-flex align-items-center justify-content-center mx-2 my-2 tags ${activeIdType === data.id && 'active'}`}
+                                key={data.id}
+                                onClick={() => handleClick(this, data) }
+                            >
+                                {data.name}
+                            </div>
                         );
                     })}
                 </div>
@@ -160,9 +160,6 @@ function Settings() {
                     />
                     :<DemoAppArea/>
                     }
-                    {/* <Player>
-                        <source src={video} />
-                    </Player> */}
                 </div>
                 <div className='d-flex p-3 activity ' style={{width:"100%"}}>
                     <div className='d-flex mb-4 justify-content-between' style={{width:"100%"}}>
@@ -170,20 +167,20 @@ function Settings() {
                         <div><b>Filters+</b></div>
                     </div>
                     <div className='d-flex cards' style={{width:"100%"}}>
-                            {videos.map(data => {
-                                return (
-                                    <div className={classes.cardContainer} >
-                                        <Card key={data.id} className={classes.cardRoot}>
-                                            <div className="d-flex justify-content-center" style={{width:'70%', height:'50px'}}>
-                                                <Avatar className={classes.avatar} alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-                                            </div>
-                                            <h5>Name of alert</h5>
-                                            <div>{data.heading}</div>
-                                            <div>{data.camera}</div>
-                                        </Card>
-                                    </div>
-                                );
-                            })}
+                        {videos.map(data => {
+                            return (
+                                <div className={classes.cardContainer} >
+                                    <Card key={data.id} className={classes.cardRoot}>
+                                        <div className="d-flex justify-content-center" style={{width:'70%', height:'50px'}}>
+                                            <Avatar className={classes.avatar} alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+                                        </div>
+                                        <h5>Name of alert</h5>
+                                        <div>{data.heading}</div>
+                                        <div>{data.camera}</div>
+                                    </Card>
+                                </div>
+                            );
+                        })}
                     </div>
                 </div>
             </div>
@@ -202,12 +199,9 @@ function Settings() {
                         <Tab icon={'Analytics'} aria-label="favorite" onClick={() => handleSideTabClick('Analytics')}/>
                     </Tabs>
                 </Paper>
-                {sidePanelValue==='Activity'?
+                {sidePanelValue==='Activity' ?
                     <Activity playVideo={playVideo} age={age} handleChange={handleChange} videos={videos} activeIdVideo={activeIdVideo}/>
-                :
-                <Analytics/>
-                }
-                
+                : <Analytics/> }
             </div>
         </div>
 	);
