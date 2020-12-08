@@ -30,58 +30,58 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-
-const names = [
-  'Oliver Hansen',
-  'Van Henry',
-  'April Tucker',
-  'Ralph Hubbard',
-  'Omar Alexander',
-  'Carlos Abbott',
-  'Miriam Wagner',
-  'Bradley Wilkerson',
-  'Virginia Andrews',
-  'Kelly Snyder',
-];
-
-const floors = [
-    'First Floor',
-    'Second Floor',
-    'Third Floor',
-    'Fourth Floor'
-]
-
 const camera = [
     'Camera 1',
     'Camera 2',
     'Camera 3',
     'Camera 4'
 ]
-
+const eventTypes = [
+  'event type 1',
+  'event type 2',
+  'event type 3',
+  'event type 4',
+  'event type 5',
+  'event type 6',
+  'event type 7',
+  'event type 8'
+]
+const priority = [
+  'low',
+  'medium',
+  'high'
+]
+const buildings = [
+  {name:'140 Hope St', area:['floors', 'hallways','garden','pathways'], floors:['First Floor','Second Floor', 'Third Floor' ,'Fourth Floor']},
+  {name:'150 Hope St', area:['floors', 'hallways','garden','pathways'], floors:['First Floor','Second Floor', 'Third Floor' ,'Fourth Floor']},
+  {name:'160 Hope St', area:['floors', 'hallways','garden','pathways'], floors:['First Floor','Second Floor', 'Third Floor' ,'Fourth Floor']},
+  {name:'120 Hope St', area:['floors', 'hallways','garden','pathways'], floors:['First Floor','Second Floor', 'Third Floor' ,'Fourth Floor']}
+]
 const videos = [
-  {id: 0, heading: 'Dog Peeping', time: new Date(), camera: 'Camera 2', image: '/assets/images/user-profile-avatar.png', location: 'Third Floor'},
-  {id: 1, heading: 'Dog Alone', time: new Date(), camera: 'Camera 3', image: '/assets/images/user-profile-avatar.png', location: 'Second Floor'},
-  {id: 2, heading: 'Dog Barking', time: new Date(), camera: 'Camera 3', image: '/assets/images/user-profile-avatar.png', location: 'First Floor'},
-  {id: 3, heading: 'Dog Jumping', time: new Date(), camera: 'Camera 2', image: '/assets/images/user-profile-avatar.png', location: 'Second Floor'},
-  {id: 4, heading: 'Dog Alone', time: new Date(), camera: 'Camera 4', image: '/assets/images/user-profile-avatar.png', location: 'Third Floor'},
-  {id: 5, heading: 'Dog Event', time: new Date(), camera: 'Camera 3', image: '/assets/images/user-profile-avatar.png', location: 'Fourth Floor'},
-  {id: 6, heading: 'Dog Running', time: new Date(), camera: 'Camera 1', image: '/assets/images/user-profile-avatar.png', location: 'First Floor'},
-  {id: 7, heading: 'Dog prasing', time: new Date(), camera: 'Camera 1', image: '/assets/images/user-profile-avatar.png', location: 'First Floor'}
+  {id: 0, heading: 'Dog Peeping', time: new Date(), camera: 'Camera 2', image: '/assets/images/user-profile-avatar.png', floor: 'Third Floor',  building:'120 Hope St', area:'hallways',eventType:'event type 1',priority:'low'},
+  {id: 1, heading: 'Dog Alone', time: new Date(), camera: 'Camera 3', image: '/assets/images/user-profile-avatar.png',   floor: 'Second Floor', building:'150 Hope St', area:'garden'  ,eventType:'event type 1',priority:'low'},
+  {id: 2, heading: 'Dog Barking', time: new Date(), camera: 'Camera 3', image: '/assets/images/user-profile-avatar.png', floor: 'First Floor',  building:'140 Hope St', area:'floors'  ,eventType:'event type 2',priority:'low'},
+  {id: 3, heading: 'Dog Jumping', time: new Date(), camera: 'Camera 2', image: '/assets/images/user-profile-avatar.png', floor: 'Second Floor', building:'120 Hope St', area:'hallways',eventType:'event type 1',priority:'low'},
+  {id: 4, heading: 'Dog Alone', time: new Date(), camera: 'Camera 4', image: '/assets/images/user-profile-avatar.png',   floor: 'Third Floor' , building:'150 Hope St', area:'hallways',eventType:'event type 1',priority:'low'},
+  {id: 5, heading: 'Dog Event', time: new Date(), camera: 'Camera 3', image: '/assets/images/user-profile-avatar.png',   floor: 'Fourth Floor', building:'140 Hope St', area:'hallways',eventType:'event type 1',priority:'low'},
+  {id: 6, heading: 'Dog Running', time: new Date(), camera: 'Camera 1', image: '/assets/images/user-profile-avatar.png', floor: 'First Floor' , building:'160 Hope St', area:'garden'  ,eventType:'event type 1',priority:'low'},
+  {id: 7, heading: 'Dog prasing', time: new Date(), camera: 'Camera 1', image: '/assets/images/user-profile-avatar.png', floor: 'First Floor' , building:'140 Hope St', area:'pathways',eventType:'event type 1',priority:'low'}
 ];
 
 export default function Filters() {
   const classes = useStyles();
-  const [cameraDropSelect, setCameraDropSelect] = React.useState([]);
+  const [buildingDropSelect, setBuildingDropSelect] = React.useState();
   const [expanded, setExpanded] = React.useState(false);
-  const [checkedLocation, setCheckedLocation] = React.useState([0]);
-  const [checkedCamera, setCheckedCamera] = React.useState([0]);
-  const [checkedEvent, setCheckedEvent] = React.useState([0]);
-  const [checkedPriority, setCheckedPriority] = React.useState([0]);
-  const [toggleLocationFloor, setToggleLocationFloor] = React.useState(false)
+  const [checkedLocationArea, setCheckedLocationArea] = React.useState([]);
+  const [checkedCamera, setCheckedCamera] = React.useState([]);
+  const [checkedEvent, setCheckedEvent] = React.useState([]);
+  const [checkedPriority, setCheckedPriority] = React.useState([]);
+  const [toggleAreaFloor, setToggleAreaFloor] = React.useState(false);
+  const [locationFloor, setLocationFloor] = React.useState()
 
-  const handleToggleLocation = (value,from) => () => {
-    const currentIndex = checkedLocation.indexOf(value);
-    const newChecked = [...checkedLocation];
+  const handleToggleLocationArea = (value,from) => () => {
+    const currentIndex = checkedLocationArea.indexOf(value);
+    const newChecked = [...checkedLocationArea];
 
     if (currentIndex === -1) {
       newChecked.push(value);
@@ -89,9 +89,8 @@ export default function Filters() {
       newChecked.splice(currentIndex, 1);
     }
 
-    setCheckedLocation(newChecked);
+    setCheckedLocationArea(newChecked);
   };
-  console.log(checkedLocation)
 
   const handleToggleCamera = (value,from) => () => {
     const currentIndex = checkedCamera.indexOf(value);
@@ -105,7 +104,6 @@ export default function Filters() {
 
     setCheckedCamera(newChecked);
   };
-  console.log(checkedCamera)
 
   const handleToggleEvent = (value,from) => () => {
     const currentIndex = checkedEvent.indexOf(value);
@@ -119,7 +117,6 @@ export default function Filters() {
 
     setCheckedEvent(newChecked);
   };
-  console.log(checkedEvent)
 
   const handleTogglePriority = (value,from) => () => {
     const currentIndex = checkedPriority.indexOf(value);
@@ -133,51 +130,49 @@ export default function Filters() {
 
     setCheckedPriority(newChecked);
   };
-  console.log(checkedPriority)
 
   const handleChangePanel = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
   
-  const handleChangeCameraSelect = (event) => {
-    setCameraDropSelect(event.target.value);
+  const handleChangeBuildingSelect = (event) => {
+    setBuildingDropSelect(event.target.value);
   };
 
-  const handleToggleLocationFloor = (value) => () => {
-    setToggleLocationFloor(value);
+  const handleToggleAreaFloor = (value) => () => {
+    setToggleAreaFloor(value);
   };
-  console.log(checkedPriority)
 
-  // const handleChange = (event,from) => {
-  //   if(from === 'location')
-  //       setLocationValue(event.target.value)
-  //   if(from === 'camera')
-  //       setCameraValue(event.target.value)
-  //   if(from === 'person')
-  //       setPersonName(event.target.value)
-  //   // setPersonName(event.target.value);
-  // };
+  const handleLocationFloorSelect = (value) => () => {
+    setLocationFloor(value);
+  };
+
+  const getAreaList = ()=>{
+    for(var i=0;i<buildings.length;i++) {
+      if(buildings[i].name===buildingDropSelect)
+        return buildings[i].area;
+    }
+    return [];
+  }
+
+  const getFloorList = ()=>{
+    for(var i=0;i<buildings.length;i++) {
+      if(buildings[i].name===buildingDropSelect)
+        return buildings[i].floors;
+    }
+    return [];
+  }
   
-  // const checkFilters = ()=>{
-  //   var filterVideos = []
+  const checkFilters = ()=>{
+    var filterVideos = videos;
+    filterVideos = videos.filter((video)=>video.building===buildingDropSelect)
+                         .filter((video)=>checkedLocationArea.length>0?checkedLocationArea.includes(video.area):true)
+                         .filter((video)=>checkedCamera.length>0?checkedCamera.includes(video.camera):true)
+                         .filter((video)=>checkedPriority.length>0?checkedPriority.includes(video.priority):true)
+                         .filter((video)=>checkedEvent.length>0?checkedEvent.includes(video.eventType):true)
 
-  //   if(cameraValue.length===0 && locationValue.length===0)
-  //     return console.log(videos)
-  //   //for camera filter
-  //   for(let i=0;i<videos.length;i++)
-  //   {
-  //     for(let j=0;j<cameraValue.length;j++)
-  //     {
-  //       if(videos[i].camera===cameraValue[j])
-  //       {
-  //         filterVideos.push(videos[i])
-  //         break;
-  //       }
-  //     }
-  //   }
-  //   //for location filter to be written
-  //   console.log("array of videos after filters",filterVideos);
-  // }
+    console.log("array of videos after filters",filterVideos);
+  }
 
   return (
     <div className={classes.formContainer}>
@@ -195,17 +190,21 @@ export default function Filters() {
             <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
-            value={cameraDropSelect}
-            onChange={handleChangeCameraSelect}
+            value={buildingDropSelect?buildingDropSelect:''}
+            onChange={handleChangeBuildingSelect}
             >
-              <MenuItem value='Single Viewer'>Single Viewer</MenuItem>
-              <MenuItem value='Multi Viewer'>Multi Viewer</MenuItem>
+              {buildings.map((building)=>{
+                return(
+                <MenuItem value={building.name}>{building.name}</MenuItem>
+                )
+              })
+              }
             </Select>
         </FormControl>
         <div className='d-flex justify-content-between w-100 m-2'>
           <div className='d-flex justify-content-between w-50'>
-            <div onClick={handleToggleLocationFloor(false)}>Area</div>
-            <div onClick={handleToggleLocationFloor(true)}>Floor</div>
+            <div onClick={handleToggleAreaFloor(false)}>Area</div>
+            <div onClick={handleToggleAreaFloor(true)}>Floor</div>
           </div>
           <div>
             <Checkbox
@@ -217,23 +216,23 @@ export default function Filters() {
             <span>All</span>
           </div> 
         </div>
-        {!toggleLocationFloor ?
+        {!toggleAreaFloor?
         <List className={classes.root}>
-            {[0, 1, 2, 3].map((value) => {
+            {getAreaList().map((value) => {
               const labelId = `checkbox-list-label-${value}`;
 
               return (
-                <ListItem key={value} role={undefined} dense button onClick={handleToggleLocation(value)}>
+                <ListItem key={value} role={undefined} dense button onClick={handleToggleLocationArea(value)}>
                   <ListItemIcon>
                     <Checkbox
                       edge="start"
-                      checked={checkedLocation.indexOf(value) !== -1}
+                      checked={checkedLocationArea.indexOf(value) !== -1}
                       tabIndex={-1}
                       disableRipple
                       inputProps={{ 'aria-labelledby': labelId }}
                     />
                   </ListItemIcon>
-                  <ListItemText id={labelId} primary={`Line item ${value + 1}`} />
+                  <ListItemText id={labelId} primary={value} />
                 </ListItem>
               );
             })}
@@ -244,16 +243,20 @@ export default function Filters() {
             <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
-            value={cameraDropSelect}
-            onChange={handleChangeCameraSelect}
+            value={locationFloor}
+            onChange={handleLocationFloorSelect}
             >
-              <MenuItem value='Single Viewer'>Single Viewer</MenuItem>
-              <MenuItem value='Multi Viewer'>Multi Viewer</MenuItem>
+              {
+                getFloorList().map((value)=>
+                  <MenuItem value={value}>{value}</MenuItem>
+                )
+              }
             </Select>
         </FormControl>
         }      
         </AccordionDetails>
       </Accordion>
+
       <Accordion className={classes.formControl} expanded={expanded === 'panel2'} onChange={handleChangePanel('panel2')}>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
@@ -269,15 +272,15 @@ export default function Filters() {
             <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
-            value={cameraDropSelect}
-            onChange={handleChangeCameraSelect}
+            value=''
+            // onChange={handleChangeBuildingSelect}
             >
               <MenuItem value='Single Viewer'>Single Viewer</MenuItem>
               <MenuItem value='Multi Viewer'>Multi Viewer</MenuItem>
             </Select>
           </FormControl>
           <List className={classes.root}>
-            {[0, 1, 2, 3].map((value) => {
+            {camera.map((value) => {
               const labelId = `checkbox-list-label-${value}`;
 
               return (
@@ -291,13 +294,14 @@ export default function Filters() {
                       inputProps={{ 'aria-labelledby': labelId }}
                     />
                   </ListItemIcon>
-                  <ListItemText id={labelId} primary={`Line item ${value + 1}`} />
+                  <ListItemText id={labelId} primary={value} />
                 </ListItem>
               );
             })}
           </List>
         </AccordionDetails>
       </Accordion>
+
       <Accordion className={classes.formControl} expanded={expanded === 'panel3'} onChange={handleChangePanel('panel3')}>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
@@ -309,6 +313,7 @@ export default function Filters() {
         <AccordionDetails>
         </AccordionDetails>
       </Accordion>
+
       <Accordion className={classes.formControl} expanded={expanded === 'panel4'} onChange={handleChangePanel('panel4')}>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
@@ -319,7 +324,7 @@ export default function Filters() {
         </AccordionSummary>
         <AccordionDetails>
           <List className={classes.root}>
-            {[0, 1, 2, 3].map((value) => {
+            {eventTypes.map((value) => {
               const labelId = `checkbox-list-label-${value}`;
 
               return (
@@ -333,13 +338,14 @@ export default function Filters() {
                       inputProps={{ 'aria-labelledby': labelId }}
                     />
                   </ListItemIcon>
-                  <ListItemText id={labelId} primary={`Line item ${value + 1}`} />
+                  <ListItemText id={labelId} primary={value} />
                 </ListItem>
               );
             })}
           </List>
         </AccordionDetails>
       </Accordion>
+
       <Accordion className={classes.formControl} expanded={expanded === 'panel5'} onChange={handleChangePanel('panel5')}>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
@@ -350,7 +356,7 @@ export default function Filters() {
         </AccordionSummary>
         <AccordionDetails>
         <List className={classes.root}>
-            {[0, 1, 2, 3].map((value) => {
+            {priority.map((value) => {
               const labelId = `checkbox-list-label-${value}`;
 
               return (
@@ -364,17 +370,19 @@ export default function Filters() {
                       inputProps={{ 'aria-labelledby': labelId }}
                     />
                   </ListItemIcon>
-                  <ListItemText id={labelId} primary={`Line item ${value + 1}`} />
+                  <ListItemText id={labelId} primary={value} />
                 </ListItem>
               );
             })}
           </List>
         </AccordionDetails>
       </Accordion>
+
       <Button variant="contained" color="primary" style={{width:'95%', margin:'auto'}}>
         Apply Filters
       </Button>
-      {/* {checkFilters()} */}
+
+      {checkFilters()}
     </div>
   );
 }

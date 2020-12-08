@@ -1,190 +1,235 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Accordion from '@material-ui/core/Accordion';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
-import AccordionSummary from '@material-ui/core/AccordionSummary';
-import Typography from '@material-ui/core/Typography';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { Card } from '@material-ui/core';
+import React from 'react'
+import Paper from '@material-ui/core/Paper';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 import { Button } from '@material-ui/core';
-import { Tabs, Tab} from "@material-ui/core";
-import { Avatar } from '@material-ui/core';
-import './reports.styles.scss'
+import Activity from '../activity/activity.component';
+import Analytics from '../analytics/analytics.component';
+import {
+  AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip,ResponsiveContainer
+} from 'recharts';
+
+const data = [
+	{
+	  name: 'Page A', uv: 4000, pv: 2400, amt: 2400,
+	},
+	{
+	  name: 'Page B', uv: 3000, pv: 1398, amt: 2210,
+	},
+	{
+	  name: 'Page C', uv: 2000, pv: 9800, amt: 2290,
+	},
+	{
+	  name: 'Page D', uv: 2780, pv: 3908, amt: 2000,
+	},
+	{
+	  name: 'Page E', uv: 1890, pv: 4800, amt: 2181,
+	},
+	{
+	  name: 'Page F', uv: 2390, pv: 3800, amt: 2500,
+	},
+	{
+	  name: 'Page G', uv: 3490, pv: 4300, amt: 2100,
+	},
+  ];
 
 const videos = [
-	{id: 0, heading: 'Dog Peeping', time: new Date(), description: 'Same Camera', image: '/assets/images/user-profile-avatar.png'},
-	{id: 1, heading: 'Dog Alone', time: new Date(), description: 'Same Camera', image: '/assets/images/user-profile-avatar.png'},
-	{id: 2, heading: 'Dog Barking', time: new Date(), description: 'Same Camera', image: '/assets/images/user-profile-avatar.png'},
-	{id: 3, heading: 'Dog Jumping', time: new Date(), description: 'Same Camera', image: '/assets/images/user-profile-avatar.png'},
-	{id: 4, heading: 'Dog Alone', time: new Date(), description: 'Same Camera', image: '/assets/images/user-profile-avatar.png'},
-	{id: 5, heading: 'Dog Event', time: new Date(), description: 'Same Camera', image: '/assets/images/user-profile-avatar.png'},
-	{id: 6, heading: 'Dog Running', time: new Date(), description: 'Same Camera', image: '/assets/images/user-profile-avatar.png'},
-	{id: 7, heading: 'Dog prasing', time: new Date(), description: 'Same Camera', image: '/assets/images/user-profile-avatar.png'}
+    {id: 0, heading: 'Dog Peeping', time: new Date(), camera: 'Camera 2', image: '/assets/images/user-profile-avatar.png', location: 'Third Floor'},
+    {id: 1, heading: 'Dog Alone', time: new Date(), camera: 'Camera 3', image: '/assets/images/user-profile-avatar.png', location: 'Second Floor'},
+    {id: 2, heading: 'Dog Barking', time: new Date(), camera: 'Camera 3', image: '/assets/images/user-profile-avatar.png', location: 'First Floor'},
+    {id: 3, heading: 'Dog Jumping', time: new Date(), camera: 'Camera 2', image: '/assets/images/user-profile-avatar.png', location: 'Second Floor'},
+    {id: 4, heading: 'Dog Alone', time: new Date(), camera: 'Camera 4', image: '/assets/images/user-profile-avatar.png', location: 'Third Floor'},
+    {id: 5, heading: 'Dog Event', time: new Date(), camera: 'Camera 3', image: '/assets/images/user-profile-avatar.png', location: 'Fourth Floor'},
+    {id: 6, heading: 'Dog Running', time: new Date(), camera: 'Camera 1', image: '/assets/images/user-profile-avatar.png', location: 'First Floor'},
+    {id: 7, heading: 'Dog prasing', time: new Date(), camera: 'Camera 1', image: '/assets/images/user-profile-avatar.png', location: 'First Floor'}
 ];
 
-const useStyles = makeStyles((theme) => ({
-	root: {
-		width: '100%',
-	},
-	cardContainer: {
-		display: 'flex',
-		flexWrap: 'wrap',
-		justifyContent: 'space-between'
-	},
-	card: {
-		width: '47%',
-		margin: 8,
-		textAlign: 'left'
-	},
-	cardRoot: {
-		width: '100%',
-		backgroundColor: '#3c3c52',
-		height: 100,
-		color: 'white',
-		padding: 10
-	},
-	heading: {
-		fontSize: theme.typography.pxToRem(15),
-		flexBasis: '33.33%',
-		flexShrink: 0,
-	},
-	secondaryHeading: {
-		fontSize: theme.typography.pxToRem(15),
-		color: theme.palette.text.secondary,
-	},
-	tab: {
-		minWidth: '24rem', // a number of your choice
-		borderRadius: '5px 5px 0 0',
-		backgroundColor: '#515159',
-		color: '#fff',
-		fontWeight: 'bold',
-		textAlign: 'left',
-	},
-	avatar: {
-		width: '10%',
-		textAlign: 'left'
-	},
-	choiceContent: {
-		width: '87%',
-		textAlign: 'left'
-	},
-}));
+export default function Reports() {
+	const [value, setValue] = React.useState(0);
+	const [sidePanelValue, setSidePanelValue] = React.useState('Activity');
+	const [activeIdVideo, setActiveIdVideo] = React.useState(0);
+	const [age, setAge] = React.useState('');
 
-function Reports() {
-	const [selectedTab, setSelectedTab] = React.useState(0);
-	const [expanded, setExpanded] = React.useState(false);
-	const [expandedChoiceValue, setExpandedChoiceValue] = React.useState();
-	const classes = useStyles();
+	const handleChange = (event, newValue) => {
+		setValue(newValue);
+    };
 
-	const handleChange = (panel) => (event, isExpanded) => {
-		setExpanded(isExpanded ? panel : false);
-	};
-	const handleTabsChange = (event, newValue) => {
-		setSelectedTab(newValue);
-	};
-	const handleExpandedChoiceValue = (value) => {
-		setExpandedChoiceValue(value);
-	};
-	// console.log(expandedChoiceValue)
-
-	const choiceComponent = <div className={classes.cardContainer}>
-		{videos.map(data => {
-			return (
-				<div className={classes.card}>
-					<Card key={data.id} className={classes.cardRoot} onClick={()=>handleExpandedChoiceValue(data.id)}>
-						<div className={classes.cardContainer}>
-							<Avatar className={classes.avatar} alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-							<div className={classes.choiceContent}>
-								<h5>{data.heading}</h5>
-							</div>
-							
-						</div>
-					</Card>
-				</div>
-			);
-		})}
-	</div>
+	const handleSideTabClick = (data) => {
+        setSidePanelValue(data);
+	}
+	
+	const playVideo = (ev, id) => {
+        setActiveIdVideo(id);
+    }
 
 	return (
-		<div className = 'dashboard-container'>
-			<div className = 'alerts-container'>
-			{/* <Alerts/> */}
-			<div className = 'alerts-header mb-3'>
-				<h2 className='font-weight-bold'>Alerts</h2>
-				<Button className='add-alert'><b>+ Add new alert</b></Button>
-			</div>
-			<Tabs className='mb-5' value={selectedTab} onChange={handleTabsChange}>
-				<Tab classes={{ root: classes.tab }} label="Location" />
-				<Tab classes={{ root: classes.tab }} label="Timeline" />
-				<Tab classes={{ root: classes.tab }} label="All" />
-			</Tabs>
-			{selectedTab === 0 && 
-				<div className={classes.root}>
-					<Accordion className='pannel' expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
-						<AccordionSummary
-							expandIcon={<ExpandMoreIcon />}
-							aria-controls="panel1bh-content"
-							id="panel1bh-header"
-						>
-							<Typography className={classes.heading}>First Floor</Typography>
-							<div className='border-accordion'></div>
-						</AccordionSummary>
-						<AccordionDetails>
-							{choiceComponent}
-						</AccordionDetails>
-					</Accordion>
-					<Accordion className='pannel' expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
-						<AccordionSummary
-							expandIcon={<ExpandMoreIcon />}
-							aria-controls="panel2bh-content"
-							id="panel2bh-header"
-						>
-							<Typography className={classes.heading}>Second Floor</Typography>
-							<div className='border-accordion'></div>
-						</AccordionSummary>
-						<AccordionDetails>
-							{choiceComponent}
-						</AccordionDetails>
-					</Accordion>
-					<Accordion className='pannel' expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
-						<AccordionSummary
-							expandIcon={<ExpandMoreIcon />}
-							aria-controls="panel3bh-content"
-							id="panel3bh-header"
-						>
-							<Typography className={classes.heading}>Third Floor</Typography>
-							<div className='border-accordion'></div>
-						</AccordionSummary>
-						<AccordionDetails>
-							{choiceComponent}
-						</AccordionDetails>
-					</Accordion>
-					<Accordion className='pannel' expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
-						<AccordionSummary
-							expandIcon={<ExpandMoreIcon />}
-							aria-controls="panel4bh-content"
-							id="panel4bh-header"
-						>
-							<Typography className={classes.heading}>Fourth Floor</Typography>
-							<div className='border-accordion'></div>
-						</AccordionSummary>
-						<AccordionDetails>
-							{choiceComponent}
-						</AccordionDetails>
-					</Accordion>
+		<div className='d-flex justify-content-between w-100 dashboard py-5' style={{width:'94%',height:'100vh',overflow:'scroll'}}>
+			<div className='px-5' style={{width:'73%'}}>
+				<div className='d-flex justify-content-between mb-4'>
+                    <h2>Reports</h2>                    
+                </div>
+				<div className='mb-4 text-left d-flex justify-content-between search-bar '>
+                    <input className='search-bar p-4' placeholder='Search for anything!' />
+                    <Button className='add-alert'><b>Fiters+</b></Button>
+                </div>
+				<div className='mb-4 text-left w-100' style={{backgroundColor:'black', height:'75vh'}}>
+					<ResponsiveContainer width='50%' height='30%'>
+						<AreaChart
+							data={data}
+							margin={{
+								top: 10, right: 30, left: 0, bottom: 0,
+							}}
+							>
+							<XAxis dataKey="name" />
+							<YAxis />
+							<Tooltip />
+							<Area type="monotone" dataKey="uv" stackId="1" stroke="#8884d8" fill="#8884d8" />
+							<Area type="monotone" dataKey="pv" stackId="1" stroke="#82ca9d" fill="#82ca9d" />
+							<Area type="monotone" dataKey="amt" stackId="1" stroke="#ffc658" fill="#ffc658" />
+						</AreaChart>
+					</ResponsiveContainer>
+					<div className="d-flex w-100" style={{height:'30%'}}>
+						<ResponsiveContainer width='50%' height='100%'>
+							<AreaChart
+								data={data}
+								margin={{
+									top: 10, right: 30, left: 0, bottom: 0,
+								}}
+								>
+								<XAxis dataKey="name" />
+								<YAxis />
+								<Tooltip />
+								<Area type="monotone" dataKey="uv" stackId="1" stroke="#8884d8" fill="#8884d8" />
+								<Area type="monotone" dataKey="pv" stackId="1" stroke="#82ca9d" fill="#82ca9d" />
+								<Area type="monotone" dataKey="amt" stackId="1" stroke="#ffc658" fill="#ffc658" />
+							</AreaChart>
+						</ResponsiveContainer>
+						
+						<ResponsiveContainer width='50%' height='100%'>
+							<AreaChart
+								data={data}
+								margin={{
+									top: 10, right: 30, left: 0, bottom: 0,
+								}}
+								>
+								<XAxis dataKey="name" />
+								<YAxis />
+								<Tooltip />
+								<Area type="monotone" dataKey="uv" stackId="1" stroke="#8884d8" fill="#8884d8" />
+								<Area type="monotone" dataKey="pv" stackId="1" stroke="#82ca9d" fill="#82ca9d" />
+								<Area type="monotone" dataKey="amt" stackId="1" stroke="#ffc658" fill="#ffc658" />
+							</AreaChart>
+						</ResponsiveContainer>
+					</div>
+					<div className="d-flex w-100" style={{height:'20%'}}>
+						<div className="d-flex">
+
+						</div>
+						<ResponsiveContainer width='25%' height='100%'>
+							<AreaChart
+								data={data}
+								margin={{
+									top: 10, right: 30, left: 0, bottom: 0,
+								}}
+								>
+								<XAxis dataKey="name" />
+								<YAxis />
+								<Tooltip />
+								<Area type="monotone" dataKey="uv" stackId="1" stroke="#8884d8" fill="#8884d8" />
+								<Area type="monotone" dataKey="pv" stackId="1" stroke="#82ca9d" fill="#82ca9d" />
+								<Area type="monotone" dataKey="amt" stackId="1" stroke="#ffc658" fill="#ffc658" />
+							</AreaChart>
+						</ResponsiveContainer>
+						
+						<ResponsiveContainer width='25%' height='100%'>
+							<AreaChart
+								data={data}
+								margin={{
+									top: 10, right: 30, left: 0, bottom: 0,
+								}}
+								>
+								<XAxis dataKey="name" />
+								<YAxis />
+								<Tooltip />
+								<Area type="monotone" dataKey="uv" stackId="1" stroke="#8884d8" fill="#8884d8" />
+								<Area type="monotone" dataKey="pv" stackId="1" stroke="#82ca9d" fill="#82ca9d" />
+								<Area type="monotone" dataKey="amt" stackId="1" stroke="#ffc658" fill="#ffc658" />
+							</AreaChart>
+						</ResponsiveContainer>
+
+						<ResponsiveContainer width='50%' height='100%'>
+							<AreaChart
+								data={data}
+								margin={{
+									top: 10, right: 30, left: 0, bottom: 0,
+								}}
+								>
+								<XAxis dataKey="name" />
+								<YAxis />
+								<Tooltip />
+								<Area type="monotone" dataKey="uv" stackId="1" stroke="#8884d8" fill="#8884d8" />
+								<Area type="monotone" dataKey="pv" stackId="1" stroke="#82ca9d" fill="#82ca9d" />
+								<Area type="monotone" dataKey="amt" stackId="1" stroke="#ffc658" fill="#ffc658" />
+							</AreaChart>
+						</ResponsiveContainer>
+					</div>
+					<div className="d-flex w-100" style={{height:'20%'}}>
+						<ResponsiveContainer width='50%' height='100%'>
+							<AreaChart
+								data={data}
+								margin={{
+									top: 10, right: 30, left: 0, bottom: 0,
+								}}
+								>
+								<XAxis dataKey="name" />
+								<YAxis />
+								<Tooltip />
+								<Area type="monotone" dataKey="uv" stackId="1" stroke="#8884d8" fill="#8884d8" />
+								<Area type="monotone" dataKey="pv" stackId="1" stroke="#82ca9d" fill="#82ca9d" />
+								<Area type="monotone" dataKey="amt" stackId="1" stroke="#ffc658" fill="#ffc658" />
+							</AreaChart>
+						</ResponsiveContainer>
+						
+						<ResponsiveContainer width='50%' height='100%'>
+							<AreaChart
+								data={data}
+								margin={{
+									top: 10, right: 30, left: 0, bottom: 0,
+								}}
+								>
+								<XAxis dataKey="name" />
+								<YAxis />
+								<Tooltip />
+								<Area type="monotone" dataKey="uv" stackId="1" stroke="#8884d8" fill="#8884d8" />
+								<Area type="monotone" dataKey="pv" stackId="1" stroke="#82ca9d" fill="#82ca9d" />
+								<Area type="monotone" dataKey="amt" stackId="1" stroke="#ffc658" fill="#ffc658" />
+							</AreaChart>
+						</ResponsiveContainer>
+					</div>
 				</div>
-			}
-			{selectedTab === 1 &&
-				<div>
-					Timeline content to be rendered
-				</div>
-			}
 			</div>
-			<div className = 'video-container'>Video Container</div>
-      	</div>
-	);
+
+			<div className='d-block pr-3' style={{width:'27%'}}>
+                <Paper square>
+                    <Tabs
+                        value={value}
+                        onChange={handleChange}
+                        variant="fullWidth"
+                        indicatorColor="primary"
+                        textColor="primary"
+                        aria-label="icon tabs example"
+                    >
+                        <Tab icon={'Activity'} aria-label="phone" onClick={() => handleSideTabClick('Activity')} />
+                        <Tab icon={'Analytics'} aria-label="favorite" onClick={() => handleSideTabClick('Analytics')}/>
+                    </Tabs>
+                </Paper>
+                {sidePanelValue==='Activity'?
+                    <Activity playVideo={playVideo} age={age} handleChange={handleChange} videos={videos} activeIdVideo={activeIdVideo}/>
+                :
+                <Analytics/>
+                }
+            </div>
+		</div>
+	)
 }
-
-export default Reports;
-
 
