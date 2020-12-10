@@ -23,7 +23,7 @@ import Select from '@material-ui/core/Select';
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
-        maxWidth: 500,
+        maxWidth: '100%',
     },
     formControl: {
         maxHeight: 50,
@@ -32,11 +32,11 @@ const useStyles = makeStyles((theme) => ({
         minWidth: '100%',
         maxHeight: 50,
     },
-    cardContainer: {
-        minWidth: '15%',
-        width:'15%',
-        textAlign: 'center'
-    },
+    // cardContainer: {
+    //     minWidth: '15%',
+    //     width:'15%',
+    //     textAlign: 'center'
+    // },
     cardRoot: {
         width: '100%',
         backgroundColor: '#313141',
@@ -50,7 +50,8 @@ const useStyles = makeStyles((theme) => ({
         
     },
     avatar: {
-        width: '40%',
+        width: '40px',
+        height: '40px',
         textAlign: 'left'
     },
     formControl: {
@@ -147,8 +148,8 @@ function Home() {
     </Popover>
     
 	return (
-		<div className='d-flex justify-content-between dashboard py-5' style={{width:'94%',height:'100vh',overflow:'scroll'}}>
-            <div className='d-block px-5' style={{width:'73%',height:'20vh',maxHeight:'20vh'}}>
+		<div className='d-lg-flex justify-content-between dashboard py-5' style={{width:'94%',height:'100vh',overflow:'scroll'}}>
+            <div className='d-block px-5'>
                 <div className='d-flex justify-content-between mb-4'>
                     <h3>Dashboard Residencial</h3>
                     <FormControl className={classes.formControl} >
@@ -205,7 +206,7 @@ function Home() {
                     <div className='d-flex cards' style={{width:"100%"}}>
                             {videos.map(data => {
                                 return (
-                                    <div className={classes.cardContainer} >
+                                    <div className='cardContainer' >
                                         <Card key={data.id} className={classes.cardRoot}>
                                             <div className="d-flex justify-content-center" style={{width:'70%', height:'50px'}}>
                                                 <Avatar className={classes.avatar} alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
@@ -221,7 +222,7 @@ function Home() {
                 </div>
             </div>
         
-            <div className='d-block pr-5' style={{width:'27%'}}>
+            <div className='d-block pr-md-5 px-5 mt-lg-0 mt-4'>
                 <Paper square className={classes.root}>
                     <Tabs
                         value={value}

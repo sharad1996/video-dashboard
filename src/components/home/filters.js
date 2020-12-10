@@ -20,21 +20,26 @@ import Select from '@material-ui/core/Select';
 const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(1),
-    width: '100%'
+    width: '100%',
+    borderRadius: 5,
+    fontWeight: 'bold',
   },
   formContainer: {
     width: 300,
     display: 'flex',
     flexWrap: 'wrap',
-    padding: 6
+    padding: '25px 20px',
+    fontWeight: "bolder",
+    border: 'none',
+    marginBottom: 10,
   }
 }));
 
 const camera = [
-    'Camera 1',
-    'Camera 2',
-    'Camera 3',
-    'Camera 4'
+  'Camera 1',
+  'Camera 2',
+  'Camera 3',
+  'Camera 4'
 ]
 const eventTypes = [
   'event type 1',
@@ -52,10 +57,10 @@ const priority = [
   'high'
 ]
 const buildings = [
-  {name:'140 Hope St', area:['floors', 'hallways','garden','pathways'], floors:['First Floor','Second Floor', 'Third Floor' ,'Fourth Floor']},
-  {name:'150 Hope St', area:['floors', 'hallways','garden','pathways'], floors:['First Floor','Second Floor', 'Third Floor' ,'Fourth Floor']},
-  {name:'160 Hope St', area:['floors', 'hallways','garden','pathways'], floors:['First Floor','Second Floor', 'Third Floor' ,'Fourth Floor']},
-  {name:'120 Hope St', area:['floors', 'hallways','garden','pathways'], floors:['First Floor','Second Floor', 'Third Floor' ,'Fourth Floor']}
+  {name:'140 Hope St', area:['Floors', 'Pool', 'Hallways', 'TV Room', 'Garden', 'Frontyard', 'Stairwell N.', 'Stairwell S.', 'Maintenance', 'Trashroom', 'Elevators', 'Area Name'], floors:['First Floor','Second Floor', 'Third Floor' ,'Fourth Floor']},
+  {name:'150 Hope St', area:['Floors', 'Pool', 'Hallways', 'TV Room', 'Garden', 'Frontyard', 'Stairwell N.', 'Stairwell S.', 'Maintenance', 'Trashroom', 'Elevators', 'Area Name'], floors:['First Floor','Second Floor', 'Third Floor' ,'Fourth Floor']},
+  {name:'160 Hope St', area:['Floors', 'Pool', 'Hallways', 'TV Room', 'Garden', 'Frontyard', 'Stairwell N.', 'Stairwell S.', 'Maintenance', 'Trashroom', 'Elevators', 'Area Name'], floors:['First Floor','Second Floor', 'Third Floor' ,'Fourth Floor']},
+  {name:'120 Hope St', area:['Floors', 'Pool', 'Hallways', 'TV Room', 'Garden', 'Frontyard', 'Stairwell N.', 'Stairwell S.', 'Maintenance', 'Trashroom', 'Elevators', 'Area Name'], floors:['First Floor','Second Floor', 'Third Floor' ,'Fourth Floor']}
 ]
 const videos = [
   {id: 0, heading: 'Dog Peeping', time: new Date(), camera: 'Camera 2', image: '/assets/images/user-profile-avatar.png', floor: 'Third Floor',  building:'120 Hope St', area:'hallways',eventType:'event type 1',priority:'low'},
@@ -186,20 +191,20 @@ export default function Filters() {
         </AccordionSummary>
         <AccordionDetails className="d-flex flex-wrap">
         <FormControl className={classes.formControl} >
-            <InputLabel id="demo-simple-select-label">Building</InputLabel>
-            <Select
+          <InputLabel id="demo-simple-select-label">Building</InputLabel>
+          <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
             value={buildingDropSelect?buildingDropSelect:''}
             onChange={handleChangeBuildingSelect}
-            >
+          >
               {buildings.map((building)=>{
                 return(
-                <MenuItem value={building.name}>{building.name}</MenuItem>
+                  <MenuItem value={building.name}>{building.name}</MenuItem>
                 )
               })
-              }
-            </Select>
+            }
+          </Select>
         </FormControl>
         <div className='d-flex justify-content-between w-100 m-2'>
           <div className='d-flex justify-content-between w-50'>
@@ -216,11 +221,10 @@ export default function Filters() {
             <span>All</span>
           </div> 
         </div>
-        {!toggleAreaFloor?
-        <List className={classes.root}>
+        {!toggleAreaFloor ?
+          <List className={classes.root}>
             {getAreaList().map((value) => {
               const labelId = `checkbox-list-label-${value}`;
-
               return (
                 <ListItem key={value} role={undefined} dense button onClick={handleToggleLocationArea(value)}>
                   <ListItemIcon>

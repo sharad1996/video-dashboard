@@ -90,3 +90,23 @@ div.active-video{
 .cards {
     overflow-x: scroll;
 }
+
+.cardContainer {
+    min-width: 15%;
+    width: 15%;
+    text-align: 'center';
+}
+
+@media (max-width: 1200px){
+    .cardContainer{
+        min-width: 35%;
+        width: 35%;
+    }
+}
+
+@media (max-width: 480px){
+    .cardContainer{
+        min-width: 100%;
+        width: 100%;
+    }
+}

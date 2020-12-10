@@ -1,216 +1,510 @@
 import React from 'react';
+import { Button } from '@material-ui/core';
+import { Card,Avatar } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import { Button, Popover } from '@material-ui/core';
-import './faces.styles.scss';
-import { Player } from 'video-react';
-import Activity from '../activity/activity.component';
-import Analytics from '../analytics/analytics.component';
-import DemoAppArea from './../home/demo-app-area.component';
-import Filters from './../home/filters';
-import Card from '@material-ui/core/Card';
-import { Avatar } from '@material-ui/core';
+import ViewComfyRoundedIcon from '@material-ui/icons/ViewComfyRounded';
+import ViewListRoundedIcon from '@material-ui/icons/ViewListRounded';
 
-const useStyles = makeStyles({
-	root: {
-		flexGrow: 1,
-		maxWidth: 500,
-    },
-    formControl: {
-        maxHeight: 50,
-    },
-    formControlBuilding: {
-        minWidth: '100%',
-        maxHeight: 50,
-    },
-    cardContainer: {
-        minWidth: '15%',
-        width:'15%',
-        textAlign: 'center'
-    },
-    cardRoot: {
-        width: '100%',
-        backgroundColor: '#313141',
-        height: 150,
-        color: 'white',
-        display:'flex',
-        flexDirection: 'column',
-        justifyContent:'center',
-        alignItems: 'center',
-        boxShadow: 'none'
-        
-    },
-    avatar: {
-        width: '40%',
+const faces = [
+	{
+		name: 'Robert Jaknkowski',
+		apartment: '3rd Floor, Apt 2B ',
+		detections: 250,
+		relEvents: 4,
+		type: 'Visitor',
+		commonActivities:[
+			'Walks Dog', 'Smoking','Frequently leaves at 9:00AM'
+		],
+		history: [
+			{
+				activityName:'Enters building',
+				date:'19 July',
+				time:'9:00 AM'
+			},
+			{
+				activityName:'Leave building',
+				date:'19 July',
+				time:'9:00 AM'
+			},
+			{
+				activityName:'Kicks Door',
+				date:'19 July',
+				time:'9:00 AM'
+			},
+			{
+				activityName:'Walks Dog',
+				date:'19 July',
+				time:'9:00 AM'
+			},
+			{
+				activityName:'Enters building',
+				date:'19 July',
+				time:'9:00 AM'
+			},
+			{
+				activityName:'Enters building',
+				date:'19 July',
+				time:'9:00 AM'
+			},
+			{
+				activityName:'Enters building',
+				date:'19 July',
+				time:'9:00 AM'
+			},
+			{
+				activityName:'Enters building',
+				date:'19 July',
+				time:'9:00 AM'
+			},
+			{
+				activityName:'Enters building',
+				date:'19 July',
+				time:'9:00 AM'
+			}
+		]
+	},
+	{
+		name: 'Aman Jaknkowski',
+		apartment: '3rd Floor, Apt 2B ',
+		detections: 250,
+		relEvents: 4,
+		type: 'Visitor',
+		commonActivities:[
+			'Walks Dog', 'Smoking','Frequently leaves at 9:00AM'
+		],
+		history: [
+			{
+				activityName:'Jumps',
+				date:'19 July',
+				time:'9:00 AM'
+			},
+			{
+				activityName:'Exit building',
+				date:'19 July',
+				time:'9:00 AM'
+			},
+			{
+				activityName:'Walks Cat',
+				date:'19 July',
+				time:'9:00 AM'
+			},
+			{
+				activityName:'Enters building',
+				date:'19 July',
+				time:'9:00 AM'
+			},
+			{
+				activityName:'Enters building',
+				date:'19 July',
+				time:'9:00 AM'
+			},
+			{
+				activityName:'Enters building',
+				date:'19 July',
+				time:'9:00 AM'
+			},
+			{
+				activityName:'Enters building',
+				date:'19 July',
+				time:'9:00 AM'
+			},
+			{
+				activityName:'Enters building',
+				date:'19 July',
+				time:'9:00 AM'
+			},
+			{
+				activityName:'Enters building',
+				date:'19 July',
+				time:'9:00 AM'
+			}
+		]
+	},
+	{
+		name: 'Karan Jaknkowski',
+		apartment: '3rd Floor, Apt 2B ',
+		detections: 250,
+		relEvents: 4,
+		type: 'Visitor',
+		commonActivities:[
+			'Walks Dog', 'Smoking','Frequently leaves at 9:00AM'
+		],
+		history: [
+			{
+				activityName:'Enters building',
+				date:'19 July',
+				time:'9:00 AM'
+			},
+			{
+				activityName:'Enters building',
+				date:'19 July',
+				time:'9:00 AM'
+			},
+			{
+				activityName:'Enters building',
+				date:'19 July',
+				time:'9:00 AM'
+			},
+			{
+				activityName:'Enters building',
+				date:'19 July',
+				time:'9:00 AM'
+			},
+			{
+				activityName:'Enters building',
+				date:'19 July',
+				time:'9:00 AM'
+			},
+			{
+				activityName:'Enters building',
+				date:'19 July',
+				time:'9:00 AM'
+			},
+			{
+				activityName:'Enters building',
+				date:'19 July',
+				time:'9:00 AM'
+			},
+			{
+				activityName:'Enters building',
+				date:'19 July',
+				time:'9:00 AM'
+			},
+			{
+				activityName:'Enters building',
+				date:'19 July',
+				time:'9:00 AM'
+			}
+		]
+	},
+	{
+		name: 'Steve Jaknkowski',
+		apartment: '3rd Foor, Apt 2B ',
+		detections: 250,
+		relEvents: 4,
+		type: 'Visitor',
+		commonActivities:[
+			'Walks Dog', 'Smoking','Frequently leaves at 9:00AM'
+		],
+		history: [
+			{
+				activityName:'Enters building',
+				date:'19 July',
+				time:'9:00 AM'
+			},
+			{
+				activityName:'Enters building',
+				date:'19 July',
+				time:'9:00 AM'
+			},
+			{
+				activityName:'Enters building',
+				date:'19 July',
+				time:'9:00 AM'
+			},
+			{
+				activityName:'Enters building',
+				date:'19 July',
+				time:'9:00 AM'
+			},
+			{
+				activityName:'Enters building',
+				date:'19 July',
+				time:'9:00 AM'
+			},
+			{
+				activityName:'Enters building',
+				date:'19 July',
+				time:'9:00 AM'
+			},
+			{
+				activityName:'Enters building',
+				date:'19 July',
+				time:'9:00 AM'
+			},
+			{
+				activityName:'Enters building',
+				date:'19 July',
+				time:'9:00 AM'
+			},
+			{
+				activityName:'Enters building',
+				date:'19 July',
+				time:'9:00 AM'
+			}
+		]
+	},
+	{
+		name: 'Robert Jaknkowski',
+		apartment: '3rd Floor, Apt 2B ',
+		detections: 250,
+		relEvents: 4,
+		type: 'Visitor'
+	},
+	{
+		name: 'Robert Jaknkowski',
+		apartment: '3rd Floor, Apt 2B ',
+		detections: 250,
+		relEvents: 4,
+		type: 'Visitor'
+	},
+	{
+		name: 'Robert Jaknkowski',
+		apartment: '3rd Floor, Apt 2B ',
+		detections: 250,
+		relEvents: 4,
+		type: 'Visitor'
+	},
+	{
+		name: 'Robert Jaknkowski',
+		apartment: '3rd Floor, Apt 2B ',
+		detections: 250,
+		relEvents: 4,
+		type: 'Visitor'
+	},
+	{
+		name: 'Robert Jaknkowski',
+		apartment: '3rd Floor, Apt 2B ',
+		detections: 250,
+		relEvents: 4,
+		type: 'Visitor'
+	},
+	{
+		name: 'Robert Jaknkowski',
+		apartment: '3rd Floor, Apt 2B ',
+		detections: 250,
+		relEvents: 4,
+		type: 'Visitor'
+	},
+	{
+		name: 'Robert Jaknkowski',
+		apartment: '3rd Floor, Apt 2B ',
+		detections: 250,
+		relEvents: 4,
+		type: 'Visitor'
+	},
+	{
+		name: 'Robert Jaknkowski',
+		apartment: '3rd Floor, Apt 2B ',
+		detections: 250,
+		relEvents: 4,
+		type: 'Visitor'
+	}
+]
+
+const useStyles = makeStyles((theme) => ({
+	cardRoot: {
+		width: '30%',
+		backgroundColor: '#3c3c52',
+		height: 200,
+		color: 'white',
+		padding: 15,
+		margin: 10
+	},
+	heading: {
+		fontSize: theme.typography.pxToRem(15),
+		flexBasis: '33.33%',
+		flexShrink: 0,
+	},
+	secondaryHeading: {
+		fontSize: theme.typography.pxToRem(15),
+		color: theme.palette.text.secondary,
+	},
+	tab: {
+		minWidth: '24rem', // a number of your choice
+		borderRadius: '5px 5px 0 0',
+		backgroundColor: '#515159',
+		color: '#fff',
+		fontWeight: 'bold',
+		textAlign: 'left',
+	},
+	avatar: {
+		height:60,
+		width:60,
+		margin: 3,
 		textAlign: 'left'
 	},
-});
-
+}));
 
 function Faces() {
-	const [value, setValue] = React.useState(0);
-	const [activeIdType, setActiveIdType] = React.useState(0);
-    const [activeIdVideo, setActiveIdVideo] = React.useState(0);
-    const classes = useStyles();
-    const [age, setAge] = React.useState('');
-    const [sidePanelValue, setSidePanelValue] = React.useState('Activity')
-    const [video, setVideo] = React.useState('');
-    const [anchorEl, setAnchorEl] = React.useState(null);
+	const classes = useStyles();
+	const [view, setview] = React.useState('grid')
+	const [sideViewData, setsideViewData] = React.useState(null)
+	const [seeMore, setseeMore] = React.useState(false)
 
-	const tags = [
-		{id: 0, name: 'Tenant', link: 'https://www.youtube.com/watch?v=C-hgCVxKOGE'},
-		{id: 1, name: 'Animal', link: 'https://www.youtube.com/watch?v=C-hgCVxKOGE'},
-		{id: 2, name: 'Crowd', link: 'https://www.youtube.com/watch?v=PbQywcwkxDM'},
-		{id: 3, name: 'Moving', link: 'https://www.youtube.com/watch?v=kdJvv3RipNY'},
-		{id: 4, name: 'Visitors', link: 'https://www.youtube.com/watch?v=kdJvv3RipNY'},
-		{id: 5, name: 'Smoking', link: 'https://www.youtube.com/watch?v=kdJvv3RipNY'},
-		{id: 6, name: 'Intruder', link: 'https://www.youtube.com/watch?v=kdJvv3RipNY'},
-        {id: 7, name: 'Loitering', link: 'https://www.youtube.com/watch?v=kdJvv3RipNY'},
-        {id: 8, name: 'Demo_tab', link: 'https://www.youtube.com/watch?v=kdJvv3RipNY'}
-    ];
+	const handleView = (value)=>{
+		setview(value);
+	}
 
-    const videos = [
-        {id: 0, heading: 'Dog Peeping', time: new Date(), camera: 'Camera 2', image: '/assets/images/user-profile-avatar.png', location: 'Third Floor'},
-        {id: 1, heading: 'Dog Alone', time: new Date(), camera: 'Camera 3', image: '/assets/images/user-profile-avatar.png', location: 'Second Floor'},
-        {id: 2, heading: 'Dog Barking', time: new Date(), camera: 'Camera 3', image: '/assets/images/user-profile-avatar.png', location: 'First Floor'},
-        {id: 3, heading: 'Dog Jumping', time: new Date(), camera: 'Camera 2', image: '/assets/images/user-profile-avatar.png', location: 'Second Floor'},
-        {id: 4, heading: 'Dog Alone', time: new Date(), camera: 'Camera 4', image: '/assets/images/user-profile-avatar.png', location: 'Third Floor'},
-        {id: 5, heading: 'Dog Event', time: new Date(), camera: 'Camera 3', image: '/assets/images/user-profile-avatar.png', location: 'Fourth Floor'},
-        {id: 6, heading: 'Dog Running', time: new Date(), camera: 'Camera 1', image: '/assets/images/user-profile-avatar.png', location: 'First Floor'},
-        {id: 7, heading: 'Dog prasing', time: new Date(), camera: 'Camera 1', image: '/assets/images/user-profile-avatar.png', location: 'First Floor'}
-    ];
+	const handleChangeSideViewData = (value)=>{
+		setsideViewData(value);
+	}
 
-    const handleChange = (event, newValue) => {
-		setValue(newValue);
-    };
-    
-    const handleClick = (ev, data) => {
-        setActiveIdType(data.id);
-        setVideo(data.link);
-    }
-
-    const handleSideTabClick = (data) => {
-        setSidePanelValue(data);
-    }
-
-    const handleFilterClick = (event) => {
-        setAnchorEl(event.currentTarget);
-    }
-
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
-    
-    const playVideo = (ev, id) => {
-        setActiveIdVideo(id);
-    }
-    
-    const open = Boolean(anchorEl);
-    const id = open ? 'simple-popover' : undefined;
-
-    const filter =<Popover
-        id={id}
-        open={open}
-        anchorEl={anchorEl}
-        onClose={handleClose}
-        anchorOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-        }}
-        transformOrigin={{
-            vertical: 'top',
-            horizontal: 'left',
-        }}
-    >
-        <Filters/>
-    </Popover>
+	const handleSeeMore = ()=>{
+		setseeMore(!seeMore)
+	}
 
 	return (
-		<div className='d-flex justify-content-between dashboard py-5' style={{width:'94%'}}>
-            <div className='d-block px-5' style={{width:'73%'}}>
-                <div className='d-flex justify-content-between mb-4'>
-                    <h3>Dashboard Residencial</h3>
-                    <button className='viewer-btn'>Main viewer</button>
+		<div className='d-flex text-left justify-content-between py-5 dashboard h w-100 overflow-auto' style={{width:'94%',height:'100vh'}} >
+			<div className='px-5' style={{width:'73%'}}>
+				<div className='d-flex justify-content-between mb-4'>
+                    <h2>Faces</h2>                    
                 </div>
-                <div className='mb-4 text-left d-flex justify-content-between search-bar '>
+				<div className='mb-4 text-left d-flex justify-content-between search-bar '>
                     <input className='search-bar p-4' placeholder='Search for anything!' />
-                    <Button className='add-alert' onClick={handleFilterClick}><b>Fiters+</b></Button>
+                    <Button className='add-alert'><b>Fiters+</b></Button>
                 </div>
-                {filter}
-                <div className='d-flex mb-4'>
-                    {tags.map(data => {
-                        return (
-                                <div
-                                    className={`list-unstyled d-flex align-items-center justify-content-center mx-2 my-2 tags ${activeIdType === data.id && 'active'}`}
-                                    key={data.id}
-                                    onClick={() => handleClick(this, data) }
-                                >
-                                    {data.name}
-                                </div>
-                        );
-                    })}
-                </div>
-                <div className='mb-4 stock-board'>
-                    {activeIdType!==8?
-                    <Player
-                        playsInline
-                        poster="/assets/poster.png"
-                        src={video}
-                    />
-                    :<DemoAppArea/>
-                    }
-                    {/* <Player>
-                        <source src={video} />
-                    </Player> */}
-                </div>
-                <div className='d-flex p-3 activity ' style={{width:"100%"}}>
-                    <div className='d-flex mb-4 justify-content-between' style={{width:"100%"}}>
-                        <div>{`Activity(${videos.length})`}</div>
-                        <div><b>Filters+</b></div>
-                    </div>
-                    <div className='d-flex cards' style={{width:"100%"}}>
-                            {videos.map(data => {
-                                return (
-                                    <div className={classes.cardContainer} >
-                                        <Card key={data.id} className={classes.cardRoot}>
-                                            <div className="d-flex justify-content-center" style={{width:'70%', height:'50px'}}>
-                                                <Avatar className={classes.avatar} alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-                                            </div>
-                                            <h5>Name of alert</h5>
-                                            <div>{data.heading}</div>
-                                            <div>{data.camera}</div>
-                                        </Card>
-                                    </div>
-                                );
-                            })}
-                    </div>
-                </div>
-            </div>
-        
-            <div className='d-block pr-5' style={{width:'27%'}}>
-                <Paper square className={classes.root}>
-                    <Tabs
-                        value={value}
-                        onChange={handleChange}
-                        variant="fullWidth"
-                        indicatorColor="primary"
-                        textColor="primary"
-                        aria-label="icon tabs example"
-                    >
-                        <Tab icon={'Activity'} aria-label="phone" onClick={() => handleSideTabClick('Activity')} />
-                        <Tab icon={'Analytics'} aria-label="favorite" onClick={() => handleSideTabClick('Analytics')}/>
-                    </Tabs>
-                </Paper>
-                {sidePanelValue==='Activity'?
-                    <Activity playVideo={playVideo} age={age} handleChange={handleChange} videos={videos} activeIdVideo={activeIdVideo}/>
-                :
-                <Analytics/>
-                }
-                
-            </div>
-        </div>
+				<div className="d-flex flex-row-reverse">
+					<ViewListRoundedIcon onClick={()=>handleView('list')}/>
+					<ViewComfyRoundedIcon onClick={()=>handleView('grid')}/>
+				</div>
+				{
+					!seeMore?
+					<div className='d-flex justify-content-between w-100 flex-wrap'>
+					{
+						view==='grid'?
+						faces.map((data,index)=>
+							<Card key={index} className={classes.cardRoot} onClick={()=>handleChangeSideViewData(data)}>
+								<div className="d-flex flex-wrap">
+									<Avatar className={classes.avatar} alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+									<div className='w-75 text-left mx-2'>
+										<h5>{data.name}</h5>
+										<h5>{data.apartment}</h5>
+										<h6 style={{color:'grey'}}>{`${data.detections} detections`}</h6>
+										<h6 style={{color:'grey'}}>{`${data.relEvents} relevant events`}</h6>
+									</div>
+									<div className="d-flex w-100 m-2 justify-content-between" >
+										<h6 className="bg-info p-1 rounded">{data.type}</h6>
+										<h6 style={{color:'grey'}}>See history</h6>
+									</div>
+								</div>
+							</Card>
+						)
+						:
+						faces.map((data,index)=>
+							<Card key={index} className={classes.cardRoot} style={{width:'100%', height:'100px'}} onClick={()=>handleChangeSideViewData(data)} >
+								<div className="d-flex flex-wrap">
+									<Avatar className={classes.avatar} alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+									<div className="d-flex justify-content-between align-items-center" style={{width:'90%'}}>
+										<div className='text-left mx-2'>
+											<h5>{data.name}</h5>
+											<h5>{data.apartment}</h5>	
+										</div>
+										<div><h6 className="bg-info p-1 rounded">{data.type}</h6></div>
+										<h6 style={{color:'grey'}}>{`${data.detections} detections`}</h6>
+										<h6 style={{color:'grey'}}>{`${data.relEvents} relevant events`}</h6>
+										<h6 style={{color:'grey'}}>See history</h6>
+									</div>
+								</div>
+							</Card>
+						)
+					}
+					</div>
+					:
+					<Card className={classes.cardRoot} style={{width:'95%', backgroundColor:'#f5eeee' ,color:'black',height:'85vh'}} >
+						<div className='d-flex  justify-content-between'>
+							<div className="d-flex flex-wrap align-items-center">
+								<Avatar className={classes.avatar} alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+								<div className="d-flex justify-content-between align-items-center">
+									<div className='text-left mx-2'>
+										<h5>{sideViewData.name}</h5>
+										<h6 style={{color:'grey'}}>{sideViewData.apartment}</h6>
+									</div>
+									<div><h6 className="bg-info p-1 rounded">{sideViewData.type}</h6></div>
+								</div>
+							</div>
+							<h5 onClick={handleSeeMore}>Close</h5>
+						</div>
+						
+						
+						<div className='w-25'>
+							<br/>
+							<h5 className="text-left">Most Common Activities</h5>
+							<div className="d-flex flex-wrap ">
+							{
+								sideViewData.commonActivities.map((value)=><h6 className='px-1' style={{color:'grey'}}>{value}</h6>)
+							}
+							</div>
+						</div>
+						<hr/>
+						<div className='scroll-auto'>
+							<h5>History</h5>
+							<div className='d-flex w-100 flex-wrap' style={{height:'48vh', overflow:'auto'}}>
+							{
+								sideViewData.history.map((data,index)=>{
+									return(
+										<Card key={index} className='m-2' style={{width:'30%', height:'100px', backgroundColor:'#f5eeee'}}>
+											<div className="d-flex align-items-center flex-wrap">
+												<Avatar className={classes.avatar} alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+												<div className="w-75" >
+														<h6>{data.activityName}</h6>
+														<h6 style={{color:'grey'}}>{data.date},<span className='p-1'>{data.time}</span></h6>	
+												</div>
+											</div>
+										</Card>
+									)
+								})
+							}
+							</div>							
+						</div>
+						
+					</Card>
+
+				}
+				
+			</div>
+			<div className="d-block mx-4 p-2" style={{backgroundColor:'#3c3c52', width:'23%', height:'90vh'}}>
+				{
+					sideViewData?
+					<Card className={classes.cardRoot} style={{width:'95%', backgroundColor:'#f5eeee' ,color:'black',height:'85vh'}} >
+						<div className="d-flex flex-wrap align-items-center">
+							<Avatar className={classes.avatar} alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+							<div className="d-flex w-75 justify-content-between align-items-center">
+								<div className='text-left mx-2'>
+									<h5>{sideViewData.name}</h5>
+									<h6 style={{color:'grey'}}>{sideViewData.apartment}</h6>
+								</div>
+								<div><h6 className="bg-info p-1 rounded">{sideViewData.type}</h6></div>
+							</div>
+						</div>
+						<div>
+							<br/>
+							<h5 className="text-left">Most Common Activities</h5>
+							<div className="d-flex flex-wrap ">
+							{
+								sideViewData.commonActivities.map((value)=><h6 className='px-1' style={{color:'grey'}}>{value}</h6>)
+							}
+							</div>
+						</div>
+						<hr/>
+						<div className='scroll-auto'>
+							<h5>History</h5>
+							<div style={{height:'48vh', overflow:'hidden'}}>
+							{
+								sideViewData.history.map((data,index)=>{
+									return(
+										<Card key={index} className='my-2' style={{width:'100%', height:'100px', backgroundColor:'#f5eeee'}}>
+											<div className="d-flex align-items-center flex-wrap">
+												<Avatar className={classes.avatar} alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+												<div className="w-75" >
+														<h6>{data.activityName}</h6>
+														<h6 style={{color:'grey'}}>{data.date},<span className='p-1'>{data.time}</span></h6>	
+												</div>
+											</div>
+										</Card>
+									)
+								})
+							}
+							</div>
+							<h6 className='text-right' onClick={handleSeeMore}>+ See More</h6>							
+						</div>
+						
+					</Card>
+					:null
+				}
+				
+			</div>
+		</div>
 	);
 }
 

@@ -72,7 +72,7 @@ export default function Activity(props) {
                     <div className='filter pr-3'>Filters+</div>
                 </div>
             </div>
-            <div>
+            <div className='location-data'>
                 {videos.map((data) => {
                     return (
                         <div className={`px-4 d-flex align-items-center mb-4 ${activeIdVideo === data.id && 'active-video'}`} key={data.id} onClick={() => playVideo(this, data.id)}>
